@@ -1,15 +1,5 @@
 # AppDynamics Oracle Monitoring Extension
 
-* [Use Case](oracle-readme.md#use-case)
-* [Installation](oracle-readme.md#installation)
-* [Metrics](oracle-readme.md#metrics)
-    - [Activity](oracle-readme.md#activity)
-    - [Wait Class Breakdown](oracle-readme.md#waitclassbreakdown)
-    - [Efficiency](oracle-readme.md#efficiency)
-    - [Resource Utilization](oracle-readme.md#resourceutilization)
-* [Oracle Licensing](oracle-readme.md#oracle-oracleLicensing)
-* [Contributing](oracle-readme.md#nagios-readme.md#contributing)
-
 ##Use Case
 The Oracle Database is an object-relational database management system. 
 
@@ -69,63 +59,76 @@ Here is a summary of the collected metrics. Complete documentation of Oracle's m
 AppDynamics displays metric values as integers. Some metrics are therefore scaled up by a factor of 100 for a better display of low values (e.g. between 0 and 2).
 
 <table>
-<tr><td>Activity<a name = "activity"></a></td>
+<tr><td>Metric</td><td>Description</td>
+
+<tr>
+<td>Activity</td>
 <td>
-<table>
-<tr><td>Active Sessions Current: Number of active sessions at the point in time when the snapshot was taken.</td></tr>
-<tr><td>Average Active Sessions: Average number of active sessions within the last 60 s. This is maybe the single most important DB load metric and a good starting point for a drill-down.</td></tr>
-<tr><td>Average Active Sessions per logical CPU (\*100): This shows the average load the database imposes on each logical CPU (i.e. cores or hyperthreads). Values above 100 (more than 1 waiting DB session per CPU) indicate a higher demand for resources than the host can satisfy. This often marks the beginning of quickly rising response times.</tr>
-<tr><td>Current OS Load: Host CPU load, when available.</tr>
-<tr><td> DB Block Changes Per Sec: Database blocks changed in the buffer cache.</tr>
-<tr><td>DB Block Changes Per Txn: Database blocks changed in the buffer cache per SQL transaction.</tr>
-<tr><td>DB Block Gets Per Sec: Database blocks read from the buffer cache.</tr>
-<tr><td>DB Block Gets Per Txn: Database blocks read from the buffer cache per SQL transaction.</tr>
-<tr><td>Executions Per Sec: SQL executions/s</tr>
-<tr><td>Executions Per Txn: SQL executions per SQL transaction.</tr>
-<tr><td>I/O Megabytes per Second</tr>
-<tr><td>Logical Reads Per Sec: Logical reads are comprised of database block reads from the buffer cache + physical reads from disk.</tr>
-<tr><td>Logons Per Sec</tr>
-<tr><td>Physical Reads Per Sec: Database blocks read from disk.</tr>
-<tr><td>Physical Read Total Bytes Per Sec</tr>
-<tr><td>Physical Write Total Bytes Per Sec</tr>
-<tr><td>Txns Per Sec: Transactions per second.
-</table>
+
+  <table>
+    <tr><td>Metric</td><td>Description</td>
+    <tr><td>Active Sessions Current</td><td>Number of active sessions at the point in time when the snapshot was taken.</td></tr>
+    <tr><td>Average Active Sessions</td><td>Average number of active sessions within the last 60 s. This is maybe the single most important DB load metric and a good starting point for a drill-down.</td></tr>
+    <tr><td>Average Active Sessions per logical CPU (\*100)</td><td>This shows the average load the database imposes on each logical CPU (i.e. cores or hyperthreads). Values above 100 (more than 1 waiting DB session per CPU) indicate a higher demand for resources than the host can satisfy. This often marks the beginning of quickly rising response times.</td></tr>
+    <tr><td>Current OS Load</td><td>Host CPU load, when available.</td></tr>
+    <tr><td> DB Block Changes Per Sec</td><td>Database blocks changed in the buffer cache.</td></tr>
+    <tr><td>DB Block Changes Per Txn</td><td>Database blocks changed in the buffer cache per SQL transaction.</td></tr>
+    <tr><td>DB Block Gets Per Sec</td><td>Database blocks read from the buffer cache.</td></tr>
+    <tr><td>DB Block Gets Per Txn</td><td>Database blocks read from the buffer cache per SQL transaction.</td></tr>
+    <tr><td>Executions Per Sec</td><td>SQL executions/s</td></tr>
+    <tr><td>Executions Per Txn</td><td>SQL executions per SQL transaction.</td></tr>
+    <tr><td>I/O Megabytes per Second</td></tr>
+    <tr><td>Logical Reads Per Sec</td><td>Logical reads are comprised of database block reads from the buffer cache + physical reads from disk.</td></tr>
+    <tr><td>Logons Per Sec</td></tr>
+    <tr><td>Physical Reads Per Sec</td><td>Database blocks read from disk.</td></tr>
+    <tr><td>Physical Read Total Bytes Per Sec</td></tr>
+    <tr><td>Physical Write Total Bytes Per Sec</td></tr>
+    <tr><td>Txns Per Sec</td><td>Transactions per second.</td></tr>
+  </table>
+  
 </td>
 </tr>
-<tr>
 
+<tr>
 <td>Wait Class Breakdown <a name = "waitclassbreakdown"></a></td>
 <td>Shows average active sessions per each wait class. Typically, the top wait classes are "CPU" and "User I/O". A shift to other wait classes is a good pointer for further   nvestigation (e.g., of network latency issues). Wait classes are documented in the Oracle Database Reference. See here: [http://docs.oracle.com/cd/E11882\_01/server.112/e17110/waitevents001.htm\#BGGHJGII](http://docs.oracle.com/cd/E11882_01/server.112/e17110/waitevents001.htm#BGGHJGII)</td>
 </tr>
 
 
 <tr>
-<td>Efficiency<a name = "efficiency"></a></td>
-<td>
-<table>
-<tr><td>Database CPU Time Ratio: Percentage of CPU time against all database time.</td>
-<tr><td>Database Wait Time Ratio: Complementary to "Database CPU Time Ratio" (percentage of non-CPU waits).</td>
-<tr><td>Memory Sorts Ratio: Percentage of sort operations that were done in RAM (as opposed to disk).</td>
-<tr><td>Execute Without Parse Ratio: Percentage of (soft and hard) parsed SQL against all executed SQL.</td>
-<tr><td>Soft Parse Ratio: Ratio of soft parses to hard parses.</td>
-<tr><td>Response Time Per Txn (ms)</td>
-<tr><td>SQL Service Response Time (ms)
-</table>
-</td>
+  <td>Efficiency<a name = "efficiency"></a></td>
+  <td>
+  
+   <table>
+    <tr><td><strong>Metric</td><td>Description</strong></td></tr>
+    <tr><td>Database CPU Time Ratio</td><td>Percentage of CPU time against all database time.</td></tr>
+    <tr><td>Database Wait Time Ratio</td><td>Complementary to "Database CPU Time Ratio" (percentage of non-CPU waits).</td></tr>
+    <tr><td>Memory Sorts Ratio</td><td>Percentage of sort operations that were done in RAM (as opposed to disk).</td></tr>
+    <tr><td>Execute Without Parse Ratio</td><td>Percentage of (soft and hard) parsed SQL against all executed SQL.</td></tr>
+    <tr><td>Soft Parse Ratio</td><td>Ratio of soft parses to hard parses.</td></tr>
+    <tr><td>Response Time Per Txn (ms)</td></tr>
+    <tr><td>SQL Service Response Time (ms)</tr>
+   </table>
+    
+  </td>
 </tr>
 
 <tr><td>Resource Utilization<a name="resourceutilization"></a></td>
-<td><table>
-<tr><td> \# of logical CPUs: Observation for informational purpose. This count is used, among others, for the metric "Average Active Sessions per logical CPU".</td>
-<tr><td>Total Sessions: Count of all database sessions at the time the snapshot was taken.</td>
-<tr><td>% of max sessions: Open sessions vs. DB parameter "sessions".</td>
-<tr><td>% of max open cursors: Maximum count of open cursors in a session vs. DB parameter "open\_cursors".</td>
-<tr><td>Shared Pool Free %</td>
-<tr><td>Temp Space Used (MB): Amount of used temporary tablespace.</td>
-<tr><td>Total PGA Allocated (MB): Amount of RAM used for sorts, hashes and the like.
-</table>
-</td>
+<td>
+
+   <table>
+    <tr><td><strong>Metric</td><td>Description</td></strong></tr>
+    <tr><td> \# of logical CPUs</td><td>Observation for informational purpose. This count is used, among others, for the metric "Average Active Sessions per logical CPU".</td>
+    <tr><td>Total Sessions</td><td>Count of all database sessions at the time the snapshot was taken.</td>
+    <tr><td>% of max sessions</td><td>Open sessions vs. DB parameter "sessions".</td>
+    <tr><td>% of max open cursors</td><td>Maximum count of open cursors in a session vs. DB parameter "open\_cursors".</td>
+    <tr><td>Shared Pool Free %</td>
+    <tr><td>Temp Space Used (MB)</td><td>Amount of used temporary tablespace.</td>
+    <tr><td>Total PGA Allocated (MB)</td><td>Amount of RAM used for sorts, hashes and the like.
+  </table>
+  </td>
 </tr>
+
 </table>
 
 ##Oracle Licensing
