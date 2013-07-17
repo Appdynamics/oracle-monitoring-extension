@@ -153,11 +153,15 @@ usage of such code.
  
 
 
+
 ##Contributing
 
-Always feel free to fork and contribute any changes directly via GitHub.
+Always feel free to fork and contribute any changes directly via [GitHub](https://github.com/Appdynamics/oracle-monitoring-extension).
 
+##Community
+
+Find out more in the [AppSphere](http://appsphere.appdynamics.com/t5/Extensions/Oracle-Database-Monitoring-Extension/idi-p/835) community.
 
 ##Support
 
-For any support questions, please contact ace@appdynamics.com.
+For any questions or feature request, please contact [AppDynamics Center of Excellence](mailto://ace-request@appdynamics.com).
