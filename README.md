@@ -28,9 +28,9 @@ The Oracle Database monitoring extension captures performance metrics from Oracl
     <table>
     <tbody>
     <tr class="odd">
-    <td align="left">JRE VERSION</td>
-    <td align="left">Driver</td>
-    <td align="left">Location</td>
+    <td align="left"><strong>JRE VERSION</strong></td>
+    <td align="left"><strong>Driver</strong></td>
+    <td align="left"><strong>Location</strong></td>
     </tr>
     <tr class="even">
     <td align="left">Java 1.5</td>
