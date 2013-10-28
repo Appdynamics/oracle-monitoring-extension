@@ -21,8 +21,8 @@ The Oracle Database monitoring extension captures performance metrics from Oracl
             GRANT CREATE SESSION TO appdynamics;
             GRANT SELECT ANY DICTIONARY TO appdynamics;
 ```
-2.  Download an extract the OracleDbMonitor.zip into your <machine-agent-home>/monitors directory.
-3.  If you're monitoring multiple Oracle DB instances, in <machine-agent-home>/monitors, create a subdirectory for every Oracle instance (SID) that you want to monitor. E.g.:
+2.  Download an extract the OracleDbMonitor.zip into your ``<machine-agent-home>/monitors directory``.
+3.  If you're monitoring multiple Oracle DB instances, in ``<machine-agent-home>/monitors``, create a subdirectory for every Oracle instance (SID) that you want to monitor. E.g.:
 
 ```
          mkdir OraDbMonitor_ORCL
@@ -58,9 +58,8 @@ and copy "OracleDbMonitor.jar" and "monitor.xml" into the new subdirectory.
 ```
         ln \--s $ORACLE_HOME/jdbc/lib/ojdbc5_g.jar ojdbc5_g.jar
 ```
-
 5.  Restart the Machine Agent.
-6.  Look for the metrics in the AppDynamics Metric Browser under | Application Infrastructure Performance  | <Tier> | Custom Metrics | Oracle Instance (SID).
+6.  Look for the metrics in the ``AppDynamics Metric Browser under | Application Infrastructure Performance  | <Tier> | Custom Metrics | Oracle Instance (SID)``.
 
 ##Metrics
 
@@ -68,6 +67,7 @@ Here is a summary of the collected metrics. Complete documentation of Oracle's m
 
 AppDynamics displays metric values as integers. Some metrics are therefore scaled up by a factor of 100 for a better display of low values (e.g. between 0 and 2).
 
+```
 <table>
 <tr><td><strong>Metric Class</strong></td><td><strong>Description</strong></td>
 
@@ -140,6 +140,7 @@ AppDynamics displays metric values as integers. Some metrics are therefore scale
 </tr>
 
 </table>
+```
 
 ##Oracle Licensing
 
