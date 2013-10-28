@@ -1,0 +1,36 @@
+<project default="build">
+    <property name="build.dir" value="dist" />
+    <property name="conf.dir" value="conf" />
+    <property name="project.name" value="OracleDBMonitor"/>
+    <property name="machine.agent.jar" value="lib/machineagent/machineagent.jar"/>
+    <property name="ojdbc6_g.jar" value="lib/oracle/ojdbc6_g.jar"/>
+    <property name="log.jar" value="lib/log4j/log4j-1.2.15.jar"/>
+    <path id="cp">
+        <pathelement location="${machine.agent.jar}"/>
+        <pathelement location="${log.jar}"/>
+    </path>
+
+    <target name="build">
+        <mkdir dir="${build.dir}/classes"/>
+        <javac destdir="${build.dir}/classes" srcdir="src/main/java" classpathref="cp" debug="on" source="1.5" target="1.5"/>
+        <mkdir dir="${build.dir}/OracleDBMonitor"/>
+        <jar destfile="${build.dir}/OracleDBMonitor/${project.name}.jar">
+            <fileset dir="${build.dir}/classes"/>
+        </jar>
+        <copy todir="${build.dir}/OracleDBMonitor">
+            <fileset dir="${conf.dir}" includes="monitor.xml"/>
+        </copy>
+        <mkdir dir="${build.dir}/OracleDBMonitor/lib"/>
+        <copy file="${ojdbc6_g.jar}" todir="${build.dir}/OracleDBMonitor/lib"/>
+        <delete dir="${build.dir}/classes"/>
+    </target>
+    <target name="package" depends="build">
+        <zip destfile="${build.dir}/OracleDBMonitor.zip">
+            <zipfileset dir="${build.dir}/OracleDBMonitor" filemode="755" prefix="OracleDBMonitor/"/>
+        </zip>
+        <delete dir="${build.dir}/OracleDBMonitor"/>
+    </target>
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+</project>

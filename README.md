@@ -20,11 +20,12 @@ The Oracle Database monitoring extension captures performance metrics from Oracl
             GRANT CREATE SESSION TO appdynamics;
             GRANT SELECT ANY DICTIONARY TO appdynamics;
 
-2.  In <machine-agent-home>/monitors, create a subdirectory for every Oracle instance (SID) that you want to monitor. E.g.:
+2.  Download an extract the OracleDbMonitor.zip into your <machine-agent-home>/monitors directory.
+3.  If you're monitoring multiple Oracle DB instances, in <machine-agent-home>/monitors, create a subdirectory for every Oracle instance (SID) that you want to monitor. E.g.:
 
          mkdir OraDbMonitor_ORCL 
 
-3.  Copy "oracle.jar" and "monitor.xml" into the new subdirectory.
+and copy "OracleDbMonitor.jar" and "monitor.xml" into the new subdirectory.
 4.  Get a suitable Oracle JDBC driver and copy or link it to the new subdirectory:
 
     <table>
