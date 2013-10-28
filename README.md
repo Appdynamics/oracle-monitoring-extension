@@ -146,11 +146,13 @@ AppDynamics displays metric values as integers. Some metrics are therefore scale
 
 The metrics in the supplied code are retrieved from
 
--   v\$session
--   v\$sesstat
--   v\$sysmetric
--   v\$system\_wait\_class
--   v\$waitclassmetric
+```
+-   v$session
+-   v$sesstat
+-   v$sysmetric
+-   v$system_wait_class
+-   v$waitclassmetric
+```
 
 all of which are, to the author's knowledge, not subject to additional
 licensing of the Oracle Diagnostics Pack. See Oracle's "Options and
