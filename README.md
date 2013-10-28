@@ -16,18 +16,22 @@ The Oracle Database monitoring extension captures performance metrics from Oracl
 1.  The Oracle DB extension needs an Oracle user account on every Oracle instance that is to be monitored. You might use an existing account with appropriate rights; however, a dedicated account will be a better solution in terms of security and manageability.
     -   Example script for account creation (run this with a DBA user):
 
+```
             CREATE USER appdynamics IDENTIFIED BY oracle;
             GRANT CREATE SESSION TO appdynamics;
             GRANT SELECT ANY DICTIONARY TO appdynamics;
-
+```
 2.  Download an extract the OracleDbMonitor.zip into your <machine-agent-home>/monitors directory.
 3.  If you're monitoring multiple Oracle DB instances, in <machine-agent-home>/monitors, create a subdirectory for every Oracle instance (SID) that you want to monitor. E.g.:
 
-         mkdir OraDbMonitor_ORCL 
+```
+         mkdir OraDbMonitor_ORCL
+```
 
 and copy "OracleDbMonitor.jar" and "monitor.xml" into the new subdirectory.
 4.  Get a suitable Oracle JDBC driver and copy or link it to the new subdirectory:
 
+```
     <table>
     <tbody>
     <tr class="odd">
@@ -47,10 +51,13 @@ and copy "OracleDbMonitor.jar" and "monitor.xml" into the new subdirectory.
     </tr>
     </tbody>
     </table>
+```
 
-    **Note:**  You may copy the driver file into your monitor subdirectory or use a symbolic link, like:
+**Note:**  You may copy the driver file into your monitor subdirectory or use a symbolic link, like:
 
+```
         ln \--s $ORACLE_HOME/jdbc/lib/ojdbc5_g.jar ojdbc5_g.jar
+```
 
 5.  Restart the Machine Agent.
 6.  Look for the metrics in the AppDynamics Metric Browser under | Application Infrastructure Performance  | <Tier> | Custom Metrics | Oracle Instance (SID).
