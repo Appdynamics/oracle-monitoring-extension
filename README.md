@@ -31,8 +31,8 @@ The Oracle Database monitoring extension captures performance metrics from Oracl
 and copy "OracleDbMonitor.jar" and "monitor.xml" into the new subdirectory.
 4.  Get a suitable Oracle JDBC driver and copy or link it to the new subdirectory:
 
-```
-    <table>
+
+<table>
     <tbody>
     <tr class="odd">
     <td align="left"><strong>JRE VERSION</strong></td>
@@ -50,8 +50,7 @@ and copy "OracleDbMonitor.jar" and "monitor.xml" into the new subdirectory.
     <td align="left"><a href="http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html">http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html</a><br /> OR <br /> $ORACLE_HOME/jdbc/lib/ojdbc6_g.jar <br /></td>
     </tr>
     </tbody>
-    </table>
-```
+</table>
 
 **Note:**  You may copy the driver file into your monitor subdirectory or use a symbolic link, like:
 
@@ -67,7 +66,7 @@ Here is a summary of the collected metrics. Complete documentation of Oracle's m
 
 AppDynamics displays metric values as integers. Some metrics are therefore scaled up by a factor of 100 for a better display of low values (e.g. between 0 and 2).
 
-```
+
 <table>
 <tr><td><strong>Metric Class</strong></td><td><strong>Description</strong></td>
 
@@ -75,7 +74,7 @@ AppDynamics displays metric values as integers. Some metrics are therefore scale
 <td>Activity</td>
 <td>
 
-  <table>
+<table>
     <tr><td><strong>Metric</strong></td><td><strong>Description</strong></td>
     <tr><td>Active Sessions Current</td><td>Number of active sessions at the point in time when the snapshot was taken.</td></tr>
     <tr><td>Average Active Sessions</td><td>Average number of active sessions within the last 60 s. This is maybe the single most important DB load metric and a good starting point for a drill-down.</td></tr>
@@ -94,7 +93,7 @@ AppDynamics displays metric values as integers. Some metrics are therefore scale
     <tr><td>Physical Read Total Bytes Per Sec</td> <td></td></tr>
     <tr><td>Physical Write Total Bytes Per Sec</td> <td></td></tr>
     <tr><td>Txns Per Sec</td><td>Transactions per second.</td> <td></td></tr>
-  </table>
+</table>
   
 </td>
 </tr>
@@ -109,7 +108,7 @@ AppDynamics displays metric values as integers. Some metrics are therefore scale
   <td>Efficiency<a name = "efficiency"></a></td>
   <td>
   
-   <table>
+<table>
     <tr><td><strong>Metric</strong></td><td><strong>Description</strong></td></tr>
     <tr><td>Database CPU Time Ratio</td><td>Percentage of CPU time against all database time.</td></tr>
     <tr><td>Database Wait Time Ratio</td><td>Complementary to "Database CPU Time Ratio" (percentage of non-CPU waits).</td></tr>
@@ -118,7 +117,7 @@ AppDynamics displays metric values as integers. Some metrics are therefore scale
     <tr><td>Soft Parse Ratio</td><td>Ratio of soft parses to hard parses.</td></tr>
     <tr><td>Response Time Per Txn (ms)</td> <td></td></tr>
     <tr><td>SQL Service Response Time (ms) <td></td> </tr>
-   </table>
+</table>
     
   </td>
 </tr>
@@ -126,7 +125,7 @@ AppDynamics displays metric values as integers. Some metrics are therefore scale
 <tr><td>Resource Utilization<a name="resourceutilization"></a></td>
 <td>
 
-   <table>
+<table>
     <tr><td><strong>Metric</strong></td><td><strong>Description</strong></td></tr>
     <tr><td> \# of logical CPUs</td><td>Observation for informational purpose. This count is used, among others, for the metric "Average Active Sessions per logical CPU".</td>
     <tr><td>Total Sessions</td><td>Count of all database sessions at the time the snapshot was taken.</td>
@@ -140,7 +139,7 @@ AppDynamics displays metric values as integers. Some metrics are therefore scale
 </tr>
 
 </table>
-```
+
 
 ##Oracle Licensing
 
