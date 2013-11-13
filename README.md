@@ -1,6 +1,6 @@
 # AppDynamics Oracle Database - Monitoring Extension
 
-This extension works only with the Java agent.
+This extension works only with the standalone machine agent.
 
 ##Use Case
 The Oracle Database is an object-relational database management system. 
