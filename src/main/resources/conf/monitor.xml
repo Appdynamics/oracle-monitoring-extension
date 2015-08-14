@@ -1,0 +1,24 @@
+<monitor>
+	<name>OracleMonitor</name>
+	<type>managed</type>
+    <enabled>true</enabled>
+	<description>Monitors Oracle database systems</description>
+	<monitor-configuration>
+	</monitor-configuration>
+	<monitor-run-task>
+		<execution-style>periodic</execution-style>
+		<execution-frequency-in-seconds>60</execution-frequency-in-seconds>
+		<name>Oracle Monitor Run Task</name>
+		<display-name>Oracle Monitor Task</display-name>
+		<description>Oracle Monitor Task</description>
+		<type>java</type>
+		<execution-timeout-in-secs>60</execution-timeout-in-secs>
+		<task-arguments>
+            <argument name="config-file" is-required="true" default-value="monitors/OracleDBMonitor/config.yml"/>
+		</task-arguments>
+		<java-task>
+			<classpath>oracle-monitoring-extension.jar</classpath>
+			<impl-class>com.appdynamics.extensions.oracle.OracleDbMonitor</impl-class>
+		</java-task>
+	</monitor-run-task>
+</monitor>

@@ -11,9 +11,8 @@ The Oracle Database monitoring extension captures performance metrics from Oracl
 -   Resource Utilization: What database resources are currently in use (sessions, open cursors, shared pool, etc).
 -   Efficiency: Ratios and response times as indicators of the instance's efficiency.
 
-##Installation
-
-1.  The Oracle DB extension needs an Oracle user account on every Oracle instance that is to be monitored. You might use an existing account with appropriate rights; however, a dedicated account will be a better solution in terms of security and manageability.
+##Prerequisite
+The Oracle DB extension needs an Oracle user account on every Oracle instance that is to be monitored. You might use an existing account with appropriate rights; however, a dedicated account will be a better solution in terms of security and manageability.
     -   Example script for account creation (run this with a DBA user):
 
 ```
@@ -21,47 +20,15 @@ The Oracle Database monitoring extension captures performance metrics from Oracl
             GRANT CREATE SESSION TO appdynamics;
             GRANT SELECT ANY DICTIONARY TO appdynamics;
 ```
-2.  Download an extract the OracleDbMonitor.zip into your ``<machine-agent-home>/monitors directory``.
-3.  If you're monitoring multiple Oracle DB instances, in ``<machine-agent-home>/monitors``, create a subdirectory for every Oracle instance (SID) that you want to monitor. E.g.:
-
-```
-         mkdir OraDbMonitor_ORCL
-```
-
-and copy "OracleDbMonitor.jar" and "monitor.xml" into the new subdirectory.
-4.  Get a suitable Oracle JDBC driver and copy or link it to the new subdirectory:
-
-
-<table>
-    <tbody>
-    <tr class="odd">
-    <td align="left"><strong>JRE VERSION</strong></td>
-    <td align="left"><strong>Driver</strong></td>
-    <td align="left"><strong>Location</strong></td>
-    </tr>
-    <tr class="even">
-    <td align="left">Java 1.5</td>
-    <td align="left">ojdbc5_g.jar</td>
-    <td align="left"><a href="http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html">http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html</a><br /> OR <br /> $ORACLE_HOME/jdbc/lib/ojdbc5_g.jar</td>
-    </tr>
-    <tr class="odd">
-    <td align="left">Java 6</td>
-    <td align="left">ojdbc6_g.jar</td>
-    <td align="left"><a href="http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html">http://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html</a><br /> OR <br /> $ORACLE_HOME/jdbc/lib/ojdbc6_g.jar <br /></td>
-    </tr>
-    </tbody>
-</table>
-
-**Note:**  You may copy the driver file into your monitor subdirectory or use a symbolic link, like:
-
-```
-        ln \--s $ORACLE_HOME/jdbc/lib/ojdbc5_g.jar ojdbc5_g.jar
-```
-5.  Restart the Machine Agent.
-6.  Look for the metrics in the ``AppDynamics Metric Browser under | Application Infrastructure Performance  | <Tier> | Custom Metrics | Oracle Instance (SID)``.
+##Installation
+1. To build from source, clone this repository and run 'mvn clean install'. This will produce a OracleDBMonitor-VERSION.zip in the target directory. Alternatively, download the latest release archive from [Github](https://github.com/Appdynamics/oracle-monitoring-extension/releases).
+2. Unzip the file OracleDBMonitor-[version].zip into `<MACHINE_AGENT_HOME>/monitors/`.
+3. In the newly created directory "OracleDBMonitor", edit the config.yml configuring the parameters (See Configuration section below).
+4. Restart the machineagent
+5. In the AppDynamics Metric Browser, look for: Application Infrastructure Performance  | \<Tier\> | Custom Metrics | Oracle Server | SID.
+6. If you're monitoring multiple Oracle DB instances, follow the above steps for every Oracle instance (SID) that you want to monitor.
 
 ##Metrics
-
 Here is a summary of the collected metrics. Complete documentation of Oracle's metrics can be found at [http://docs.oracle.com/cd/E11882\_01/server.112/e17110/waitevents.htm\#REFRN101](http://docs.oracle.com/cd/E11882_01/server.112/e17110/waitevents.htm#REFRN101).
 
 AppDynamics displays metric values as integers. Some metrics are therefore scaled up by a factor of 100 for a better display of low values (e.g. between 0 and 2).
@@ -142,7 +109,6 @@ AppDynamics displays metric values as integers. Some metrics are therefore scale
 
 
 ##Oracle Licensing
-
 The metrics in the supplied code are retrieved from
 
 ```
@@ -162,18 +128,12 @@ If you plan on extending this code using data dictionary views of the
 Diagnostics Pack (e.g., DBA\_HIST\_% views), you might want to make use
 of the argument "ash\_licensed" in monitor.xml to easily en-/disable
 usage of such code.
- 
-
-
 
 ##Contributing
-
-Always feel free to fork and contribute any changes directly via [GitHub](https://github.com/Appdynamics/oracle-monitoring-extension).
+Always feel free to fork and contribute any changes directly here on GitHub.
 
 ##Community
-
 Find out more in the [AppSphere](http://appsphere.appdynamics.com/t5/Extensions/Oracle-Database-Monitoring-Extension/idi-p/835) community.
 
 ##Support
-
-For any questions or feature request, please contact [AppDynamics Center of Excellence](mailto:ace-request@appdynamics.com).
+For any questions or feature request, please contact [AppDynamics Center of Excellence](mailto:help@appdynamics.com).
