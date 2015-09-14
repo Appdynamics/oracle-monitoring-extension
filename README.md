@@ -28,6 +28,34 @@ The Oracle DB extension needs an Oracle user account on every Oracle instance th
 5. In the AppDynamics Metric Browser, look for: Application Infrastructure Performance  | \<Tier\> | Custom Metrics | Oracle Server | SID.
 6. If you're monitoring multiple Oracle DB instances, follow the above steps for every Oracle instance (SID) that you want to monitor.
 
+## Configuration ##
+Note : Please make sure to not use tab (\t) while editing yaml files. You may want to validate the yaml file using a [yaml validator](http://yamllint.com/)
+
+1. Configure the Oracle DB parameters by editing the config.yml file in `<MACHINE_AGENT_HOME>/monitors/OracleDBMonitor/`. Specify the host, port, username, password and sid of the Oracle DB instance.
+
+   For eg.
+   ```
+        # Oracle DB connection params
+        host: "localhost"
+        port: 49161
+        sid: "xe"
+        username: "system"
+        password: "oracle"
+        # prefix used to show up metrics in AppDynamics
+        metricPathPrefix:  "Custom Metrics|ORACLE Server|"
+
+   ```
+
+3. Configure the path to the config.yml file by editing the <task-arguments> in the monitor.xml file in the `<MACHINE_AGENT_HOME>/monitors/OracleDBMonitor/` directory. Below is the sample
+
+     ```
+     <task-arguments>
+         <!-- config file-->
+         <argument name="config-file" is-required="true" default-value="monitors/OracleDBMonitor/config.yml" />
+          ....
+     </task-arguments>
+    ```
+
 ##Metrics
 Here is a summary of the collected metrics. Complete documentation of Oracle's metrics can be found at [http://docs.oracle.com/cd/E11882\_01/server.112/e17110/waitevents.htm\#REFRN101](http://docs.oracle.com/cd/E11882_01/server.112/e17110/waitevents.htm#REFRN101).
 

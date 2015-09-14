@@ -6,5 +6,5 @@ sid: "xe"
 username: "system"
 password: "oracle"
 
-#prefix used to show up metrics in AppDynamics
+# prefix used to show up metrics in AppDynamics
 metricPathPrefix:  "Custom Metrics|ORACLE Server|"
