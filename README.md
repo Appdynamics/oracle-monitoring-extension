@@ -24,9 +24,16 @@ The Oracle DB extension needs an Oracle user account on every Oracle instance th
 1. To build from source, clone this repository and run 'mvn clean install'. This will produce a OracleDBMonitor-VERSION.zip in the target directory. Alternatively, download the latest release archive from [Github](https://github.com/Appdynamics/oracle-monitoring-extension/releases).
 2. Unzip the file OracleDBMonitor-[version].zip into `<MACHINE_AGENT_HOME>/monitors/`.
 3. In the newly created directory "OracleDBMonitor", edit the config.yml configuring the parameters (See Configuration section below).
-4. Restart the machineagent
-5. In the AppDynamics Metric Browser, look for: Application Infrastructure Performance  | \<Tier\> | Custom Metrics | Oracle Server | SID.
-6. If you're monitoring multiple Oracle DB instances, follow the above steps for every Oracle instance (SID) that you want to monitor.
+4. Download the oracle JDBC jar file and place it in the `<MACHINE_AGENT_HOME>/monitors/OracleDBMonitor` directory.
+5. Edit the monitor.xml and provide the name of the jar file in the classpath. For eg. 
+   
+```   
+    <classpath>oracle-monitoring-extension.jar;ojdbc6.jar</classpath>
+```    
+
+6. Restart the machineagent
+7. In the AppDynamics Metric Browser, look for: Application Infrastructure Performance  | \<Tier\> | Custom Metrics | Oracle Server | SID.
+8. If you're monitoring multiple Oracle DB instances, follow the above steps for every Oracle instance (SID) that you want to monitor.
 
 ## Configuration ##
 Note : Please make sure to not use tab (\t) while editing yaml files. You may want to validate the yaml file using a [yaml validator](http://yamllint.com/)

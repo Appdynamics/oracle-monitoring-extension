@@ -20,7 +20,6 @@ import com.appdynamics.extensions.PathResolver;
 import com.appdynamics.extensions.oracle.common.OracleQueries;
 import com.appdynamics.extensions.oracle.config.Configuration;
 import com.appdynamics.extensions.yml.YmlReader;
-import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.*;
 import com.singularity.ee.agent.systemagent.api.AManagedMonitor;
