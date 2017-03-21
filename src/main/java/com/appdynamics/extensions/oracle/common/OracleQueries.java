@@ -27,6 +27,8 @@ public class OracleQueries {
 
     public static final String waitClassBreakDownMetrics = "SELECT 'Wait Class Breakdown|'||wait_class, ROUND(aas, 2) FROM(SELECT n.wait_class, m.time_waited/m.INTSIZE_CSEC AAS FROM v$waitclassmetric m, v$system_wait_class n WHERE m.wait_class_id=n.wait_class_id AND n.wait_class != 'Idle' UNION ALL SELECT 'CPU', value/100 AAS FROM v$sysmetric WHERE metric_name = 'CPU Usage Per Sec' AND group_id = 2)";
 
+    public static final String tableSpacePctFree = "select df.tablespace_name, round(100 * ( (df.totalspace - tu.totalusedspace)/ df.totalspace)) PercentFree from (select tablespace_name, round(sum(bytes) / 1048576) totalSpace from dba_data_files group by tablespace_name) df, (select round(sum(bytes)/(1024*1024)) totalusedspace, tablespace_name from dba_segments group by tablespace_name) tu where df.tablespace_name = tu.tablespace_name";
+
     public static final String [] queries = {sessions, activeUserSessions, percentOfMaxOpenCursors, percentOfMaxSessions, sysMetrics,
-            avgActiveSessionsPerLogicalCPU, waitClassBreakDownMetrics};
+            avgActiveSessionsPerLogicalCPU, waitClassBreakDownMetrics,tableSpacePctFree};
 }

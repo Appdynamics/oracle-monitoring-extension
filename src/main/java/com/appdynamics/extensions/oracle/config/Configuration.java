@@ -15,6 +15,14 @@
  */
 package com.appdynamics.extensions.oracle.config;
 
+import com.appdynamics.extensions.crypto.CryptoUtil;
+import com.google.common.collect.Maps;
+
+import java.util.Map;
+
+import static com.appdynamics.TaskInputArgs.ENCRYPTION_KEY;
+import static com.appdynamics.TaskInputArgs.PASSWORD_ENCRYPTED;
+
 public class Configuration {
 
     private String host;
@@ -22,6 +30,8 @@ public class Configuration {
     private String sid;
     private String username;
     private String password;
+    private String encryptedPassword;
+    private String encryptionKey;
 
     private String metricPathPrefix;
 
@@ -58,6 +68,12 @@ public class Configuration {
     }
 
     public String getPassword() {
+        if(encryptionKey != null){
+            Map cryptoMap = Maps.newHashMap();
+            cryptoMap.put(PASSWORD_ENCRYPTED,encryptedPassword);
+            cryptoMap.put(ENCRYPTION_KEY,encryptionKey);
+            password = CryptoUtil.getPassword(cryptoMap);
+        }
         return password;
     }
 
@@ -71,5 +87,21 @@ public class Configuration {
 
     public void setMetricPathPrefix(String metricPathPrefix) {
         this.metricPathPrefix = metricPathPrefix;
+    }
+
+    public String getEncryptedPassword() {
+        return encryptedPassword;
+    }
+
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
+    }
+
+    public String getEncryptionKey() {
+        return encryptionKey;
+    }
+
+    public void setEncryptionKey(String encryptionKey) {
+        this.encryptionKey = encryptionKey;
     }
 }

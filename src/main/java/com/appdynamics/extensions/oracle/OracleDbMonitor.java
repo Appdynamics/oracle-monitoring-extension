@@ -20,8 +20,9 @@ import com.appdynamics.extensions.PathResolver;
 import com.appdynamics.extensions.oracle.common.OracleQueries;
 import com.appdynamics.extensions.oracle.config.Configuration;
 import com.appdynamics.extensions.yml.YmlReader;
+import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
-import com.google.common.collect.Maps;
+import com.google.common.collect.*;
 import com.singularity.ee.agent.systemagent.api.AManagedMonitor;
 import com.singularity.ee.agent.systemagent.api.MetricWriter;
 import com.singularity.ee.agent.systemagent.api.TaskExecutionContext;
@@ -35,12 +36,16 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public class OracleDbMonitor extends AManagedMonitor {
     private static final Logger logger = Logger.getLogger(OracleDbMonitor.class);
     private static final String CONFIG_ARG = "config-file";
-    private Map<String, String> valueMap;
+    public static final String DUMP_FOR_PRINTING = "dumpForPrinting";
+    private Multimap<String,String> valueMap;
 
     public OracleDbMonitor() throws ClassNotFoundException {
         String msg = "Using Monitor Version [" + getImplementationVersion() + "]";
@@ -70,7 +75,7 @@ public class OracleDbMonitor extends AManagedMonitor {
     }
 
     private void fetchMetrics(Configuration config, String[] queries) throws Exception {
-        valueMap = Maps.newHashMap();
+        valueMap = ArrayListMultimap.create();
         Connection conn = null;
         Statement stmt = null;
         boolean debug = logger.isDebugEnabled();
@@ -91,6 +96,10 @@ public class OracleDbMonitor extends AManagedMonitor {
                             logger.debug("[key,value] = [" + key + "," + value + "]");
                         }
                         valueMap.put(key.toUpperCase(), value);
+                        //dump metrics for printing
+                        if(query.equalsIgnoreCase(OracleQueries.tableSpacePctFree)){
+                            valueMap.put(key.toUpperCase(), DUMP_FOR_PRINTING);
+                        }
                     }
                 } catch (Exception ex) {
                     logger.error("Error while executing query [" + query + "]", ex);
@@ -125,6 +134,8 @@ public class OracleDbMonitor extends AManagedMonitor {
 
         return conn;
     }
+
+
 
     private void printDBMetrics(Configuration config) {
         String metricPath = config.getMetricPathPrefix() + config.getSid() + "|";
@@ -180,6 +191,13 @@ public class OracleDbMonitor extends AManagedMonitor {
         printMetric(efficiencyMetricPath + "Response Time Per Txn", getString("Response Time Per Txn"));
         // Time measured in Centiseconds
         printMetric(efficiencyMetricPath + "SQL Service Response Time", getString("SQL Service Response Time"));
+        // table space metrics
+        String tableSpaceMetricPath = metricPath + "TableSpaceMetrics|";
+        for(Map.Entry<String,Collection<String>> entry : valueMap.asMap().entrySet()){
+            if(entry.getValue().contains(DUMP_FOR_PRINTING)){
+                printMetric(tableSpaceMetricPath + entry.getKey() + "|Free %",getString(entry.getKey()));
+            }
+        }
     }
 
     protected void printMetric(String metricName, String value) {
@@ -236,10 +254,13 @@ public class OracleDbMonitor extends AManagedMonitor {
     protected String getString(String key, boolean convertUpper) {
         if (convertUpper)
             key = key.toUpperCase();
-        String strResult = valueMap.get(key);
+        List<String> values = (ArrayList<String>) valueMap.get(key);
+        //multi-map never returns null, an empty collection.
+        String strResult = values.get(0);
         if (strResult == null) {
             return "";
         }
+
         // round the result to a integer since we don't handle fractions
         float result = Float.valueOf(strResult);
         String resultStr = getString(result);
