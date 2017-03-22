@@ -253,7 +253,7 @@ public class OracleDbMonitor extends AManagedMonitor {
     protected String getString(String key, boolean convertUpper) {
         if (convertUpper)
             key = key.toUpperCase();
-        List<String> values = (ArrayList<String>) valueMap.get(key);
+        List<String> values = (List<String>) valueMap.get(key);
         //multi-map never returns null, an empty collection.
         String strResult = values.get(0);
         if (strResult == null) {
