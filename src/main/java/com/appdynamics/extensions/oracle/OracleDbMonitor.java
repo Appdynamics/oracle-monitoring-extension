@@ -255,6 +255,9 @@ public class OracleDbMonitor extends AManagedMonitor {
             key = key.toUpperCase();
         List<String> values = (List<String>) valueMap.get(key);
         //multi-map never returns null, an empty collection.
+        if(values.size() < 1){
+            return "";
+        }
         String strResult = values.get(0);
         if (strResult == null) {
             return "";
