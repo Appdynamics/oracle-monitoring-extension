@@ -352,7 +352,10 @@ AppDynamics displays metric values as integers. Some metrics are therefore scale
 
 <tr>
 <td>Wait Class Breakdown <a name = "waitclassbreakdown"></a></td>
-<td>Shows average active sessions per each wait class. Typically, the top wait classes are "CPU" and "User I/O". A shift to other wait classes is a good pointer for further   nvestigation (e.g., of network latency issues). Wait classes are documented in the Oracle Database Reference. See here: [http://docs.oracle.com/cd/E11882\_01/server.112/e17110/waitevents001.htm\#BGGHJGII](http://docs.oracle.com/cd/E11882_01/server.112/e17110/waitevents001.htm#BGGHJGII)</td>
+<td>Shows average active sessions per each wait class. Typically, the top wait classes are 
+"CPU" and "User I/O". A shift to other wait classes is a good pointer for further investigation
+ (e.g., of network latency issues). Wait classes are documented in the Oracle Database Reference.
+  See here: https://docs.oracle.com/cloud/latest/db112/REFRN/toc.htm</td>
 </tr>
 
 
@@ -426,7 +429,7 @@ For any questions or feature request, please contact [AppDynamics Center of Exce
 ## Change Log ##
 | Param | Description |
 | ----- | ----- |
-| 2.3 | Moved to Extensions 2.0 framework, complete revamp|
+| 2.3 | Moved to Extensions 2.0 framework, Complete revamp of extension|
 | 2.2 | Provides standard set of metrics |
 
 [troubleshooting-document]: https://community.appdynamics.com/t5/Knowledge-Base/How-to-troubleshoot-missing-custom-metrics-or-extensions-metrics/ta-p/28695
