@@ -393,7 +393,7 @@ AppDynamics displays metric values as integers. Some metrics are therefore scale
 </table>
 
 
-##Oracle Licensing
+## Oracle Licensing
 The metrics in the supplied code are retrieved from
 
 ```
@@ -414,11 +414,11 @@ Diagnostics Pack (e.g., DBA\_HIST\_% views), you might want to make use
 of the argument "ash\_licensed" in monitor.xml to easily en-/disable
 usage of such code.
 
-##Contributing
+## Contributing
 Always feel free to fork and contribute any changes directly here on [GitHub](https://github.com/Appdynamics/oracle-monitoring-extension/).
 
-##Community
+## Community
 Find out more in the [AppDynamics Exchange](https://www.appdynamics.com/community/exchange/extension/oracle-database-monitoring-extension/) community.
 
-##Support
+## Support
 For any questions or feature request, please contact [AppDynamics Center of Excellence](mailto:help@appdynamics.com).
