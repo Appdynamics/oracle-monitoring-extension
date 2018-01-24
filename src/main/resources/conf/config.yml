@@ -6,18 +6,16 @@ metricPrefix: "Custom Metrics|OracleDB|"
 
 
 dbServers:
-    - displayName: "OracleDB1"
+    - displayName: "OracleDB"
       connectionUrl: "jdbc:oracle:thin:@192.168.57.106:1521:orcl12c"
-#      connectionUrl: "jdbc:oracle:thin:system/oracle@192.168.57.106:1521:orcl12c"
+#      connectionUrl: "jdbc:oracle:thin:username/password@HostForDatabase:PortForDatabase:databaseName"
+#      connectionUrl: "jdbc:oracle:thin:@HostForDatabase:PortForDatabase:databaseName"
 
       driver: "oracle.jdbc.OracleDriver"
-
 
       connectionProperties:
          - user: "system"
          - password: "oracle"
-#        - databaseName: "orcl12c"
-#        - ReadOnly: "true"
 
       #Needs to be used in conjunction with `encryptionKey`. Please read the extension documentation to generate encrypted password
 #      encryptedPassword: "9XdTa7+McBwP2g2xSpyNsg=="
