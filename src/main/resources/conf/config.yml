@@ -99,12 +99,12 @@ dbServers:
               type: "metricValue"
 
         - displayName: "Query8 Table Space Percent Free"
-          queryStmt: "select df.tablespace_name as tableName, round(100 * ( (df.totalspace - tu.totalusedspace)/ df.totalspace)) PercentFree from (select tablespace_name, round(sum(bytes) / 1048576) totalSpace from dba_data_files group by tablespace_name) df, (select round(sum(bytes)/(1024*1024)) totalusedspace, tablespace_name from dba_segments group by tablespace_name) tu where df.tablespace_name = tu.tablespace_name"
+          queryStmt: "select df.tablespace_name as tableName, round(100 * ( (df.totalspace - tu.totalusedspace)/ df.totalspace)) Value from (select tablespace_name, round(sum(bytes) / 1048576) totalSpace from dba_data_files group by tablespace_name) df, (select round(sum(bytes)/(1024*1024)) totalusedspace, tablespace_name from dba_segments group by tablespace_name) tu where df.tablespace_name = tu.tablespace_name"
           columns:
             - name: "tableName"
               type: "metricPathName"
 
-            - name: "PercentFree"
+            - name: "Value"
               type: "metricValue"
 
 

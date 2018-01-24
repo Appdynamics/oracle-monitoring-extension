@@ -147,12 +147,12 @@ Note : Please make sure to not use tab (\t) while editing yaml files. You may wa
                   type: "metricValue"
     
             - displayName: "Query8 Table Space Percent Free"
-              queryStmt: "select df.tablespace_name as tableName, round(100 * ( (df.totalspace - tu.totalusedspace)/ df.totalspace)) PercentFree from (select tablespace_name, round(sum(bytes) / 1048576) totalSpace from dba_data_files group by tablespace_name) df, (select round(sum(bytes)/(1024*1024)) totalusedspace, tablespace_name from dba_segments group by tablespace_name) tu where df.tablespace_name = tu.tablespace_name"
+              queryStmt: "select df.tablespace_name as tableName, round(100 * ( (df.totalspace - tu.totalusedspace)/ df.totalspace)) Value from (select tablespace_name, round(sum(bytes) / 1048576) totalSpace from dba_data_files group by tablespace_name) df, (select round(sum(bytes)/(1024*1024)) totalusedspace, tablespace_name from dba_segments group by tablespace_name) tu where df.tablespace_name = tu.tablespace_name"
               columns:
                 - name: "tableName"
                   type: "metricPathName"
     
-                - name: "PercentFree"
+                - name: "Value"
                   type: "metricValue"
     
     
@@ -188,8 +188,133 @@ monitor.xml file.!
 </java-task>
 ```
 
+4. Restart the Machine Agent.
+
+
+### How to Connect to your Database with the extension ###
+Lets take a look at some sample connection information: 
+```
+dbServers:
+dbServers:
+    - displayName: "OracleDB1"
+      connectionUrl: "jdbc:oracle:thin:system/oracle@192.168.57.106:1521:orcl12c"
+      driver: "oracle.jdbc.OracleDriver"
+      
+#      connectionProperties:
+#         - user: "system"
+#         - password: "oracle"
+
+```
+In order to connect to any database, you will have to provide a connectionUrl. 
+In the example above we see that the extension is connected to the database **(orcl12c)**(listed in the config) using the connectionUrl. 
+In this case we are also providing the username, password and the databaseName in the same connectionUrl 
+and therefore the "connectionProperties" and the fields under it, "user" and "password", are commented out. 
+You have to make sure that if you are not sending any connectionProperties to create a 
+connection, then you should comment the whole thing out just like in the example. 
+
+Lets take a look at another way you can connect to the database.
+In this case we do need to provide properties such as a username and a password and 
+therefore we uncomment those lines and update them with valid information.
+
+```
+dbServers:
+    - displayName: "OracleDB1"
+      connectionUrl: "jdbc:oracle:thin:@192.168.57.106:1521:orcl12c"
+      driver: "oracle.jdbc.OracleDriver"
+
+      connectionProperties:
+         - user: "system"
+         - password: "oracle"
+```
+In this case we do add the Database Name as the last part of the connectionUrl **(orcl12c)** but all other properties like the **username** and **password** are provided as **connectionProperties**. 
+You will have to confirm how your database takes in the login information and based on that provide the information in your config.yaml in order to successfully establish a connection.
+
+
+### Explanation of the type of queries that are supported with this extension ###
+Only queries that start with **SELECT** are allowed! Your query should only return one row at a time. 
+
+It is suggested that you only  return one row at a time because if it returns a full table with enormous amount of data, it may overwhelm the system and it may take a very long time to fetch that data.  
+
+The extension does support getting values from multiple columns at once but it can only pull the metrics from the latest value from the row returned.
+
+The name of the metric displayed on the **Metric Browser** will be the "name" value that you specify in the config.yml for that metric. 
+Looking at the following sample query : 
+
+```
+ queries:
+   - displayName: "Active Events"
+     queryStmt: "Select NODE_NAME, EVENT_CODE, EVENT_ID, EVENT_POSTED_COUNT from Active_events"
+     columns:
+       - name: "NODE_NAME"
+         type: "metricPathName"
+
+       - name: "EVENT_ID"
+         type: "metricPathName"
+
+       - name: "EVENT_CODE"
+         type: "metricValue"
+
+       - name: "EVENT_POSTED_COUNT"
+         type: "metricValue"
+
+```
+
+1. **queries** : You can add multiple queries under this field. 
+    1. **displayName** : The name you would like to give to the metrics produced by this query. 
+    2. **queryStmt** : This will be your SQL Query that will be used to query the database.
+    3. **columns**: Under this field you will have to list all the columns that you are trying to get values from.
+        1. **name** : The name of the column you would like to see on the metric browser.
+        2. **type** : This value will define if the value returned from the column will be used for the name of the metric or if it is going to be the value of the metric.
+            1. **metricPathName** : If you select this, this value will be added to the metric path for the metric.
+            2. **metricValue** : If you select this, then the value returned will become your metric value that will correspond to the name you specified above.
+            
+For the query listed above, there will be two metrics returned as we have two columns of type "metricValue".
+The metric path for them will be : 
+1. Custom Metrics|SQL|Instance1|Active Events|NODE_NAME|EVENT_ID|EVENT_CODE
+2. Custom Metrics|SQL|Instance1|Active Events|NODE_NAME|EVENT_ID|EVENT_POSTED_COUNT
+
+Lets look at another query.
+```
+           - displayName: "Node Status"
+             queryStmt: "Select NODE_NAME, NODE_STATE from NODE_STATES"
+             columns:
+               - name: "NODE_NAME"
+                 type: "metricPathName"
+   
+               - name: "NODE_STATE"
+                 type: "metricValue"
+                 properties:
+                   convert:
+                     "INITIALIZING" : 0
+                     "UP" : 1
+                     "DOWN" : 2
+                     "READY" : 3
+                     "UNSAFE" : 4
+                     "SHUTDOWN" : 5
+                     "RECOVERING" : 6
+
+```
+Lets say if your query returns a text value, but you would still like to see it in the metric browser. 
+In order to make that happen, you could use the **"convert"** property and assign each value a number. 
+The extension will automatically convert the text value to the corresponding number.
+
+**NOTE:** In order to use this feature, please make sure that the value that is being returned is EXACTLY the same as you have listed in the config.yaml, otherwise the extension will throw an error.
+ 
+## Troubleshooting ##
+
+Please follow the steps listed in this [troubleshooting-document] in order to troubleshoot your issue. 
+These are a set of common issues that customers might have faced during the installation of the extension. 
+If these don't solve your issue, please follow the last step on the [troubleshooting-document] to contact the support team.
+
+## Credentials Encryption ##
+
+Please visit [this page ](https://community.appdynamics.com/t5/Knowledge-Base/How-to-use-Password-Encryption-with-Extensions/ta-p/29397)to get detailed instructions on password encryption. The steps in this document will guide you through the whole process.
+If you want to use password encryption, please send arguments as connectionProperties. You will have to fill in the encrypted Password and Encryption Key fields in the config but you will also have to give an empty "" value to the password field and the encrypted password will be automatically picked up.
+
+
+
 ## Metrics
-Here is a summary of the collected metrics. Complete documentation of Oracle's metrics can be found at [http://docs.oracle.com/cd/E11882\_01/server.112/e17110/waitevents.htm\#REFRN101](http://docs.oracle.com/cd/E11882_01/server.112/e17110/waitevents.htm#REFRN101).
+Here is a summary of the collected metrics. Complete documentation of Oracle's website.
 
 AppDynamics displays metric values as integers. Some metrics are therefore scaled up by a factor of 100 for a better display of low values (e.g. between 0 and 2).
 
@@ -290,10 +415,10 @@ of the argument "ash\_licensed" in monitor.xml to easily en-/disable
 usage of such code.
 
 ##Contributing
-Always feel free to fork and contribute any changes directly here on GitHub.
+Always feel free to fork and contribute any changes directly here on [GitHub](https://github.com/Appdynamics/oracle-monitoring-extension/).
 
 ##Community
-Find out more in the [AppSphere](http://appsphere.appdynamics.com/t5/Extensions/Oracle-Database-Monitoring-Extension/idi-p/835) community.
+Find out more in the [AppDynamics Exchange](https://www.appdynamics.com/community/exchange/extension/oracle-database-monitoring-extension/) community.
 
 ##Support
 For any questions or feature request, please contact [AppDynamics Center of Excellence](mailto:help@appdynamics.com).
