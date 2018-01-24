@@ -10,12 +10,13 @@ public class Column {
     private String name;
     private String type;
     private String aggregationType = MetricWriter.METRIC_AGGREGATION_TYPE_AVERAGE;
-    private String timeRollupType  = MetricWriter.METRIC_TIME_ROLLUP_TYPE_AVERAGE;
+    private String timeRollupType = MetricWriter.METRIC_TIME_ROLLUP_TYPE_AVERAGE;
     private String clusterRollupType = MetricWriter.METRIC_CLUSTER_ROLLUP_TYPE_INDIVIDUAL;
     private Map properties;
 
     //
     public Map convert;
+
     //
     public String getName() {
         return name;
@@ -34,7 +35,7 @@ public class Column {
     }
 
     public Map getProperties() {
-        if(properties == null){
+        if (properties == null) {
             properties = new Properties();
         }
         return properties;
@@ -68,11 +69,11 @@ public class Column {
         this.clusterRollupType = clusterRollupType;
     }
 
-    public Map getConvertMap(){
+    public Map getConvertMap() {
         return convert;
     }
 
-    public void setConvertMap(Map convert){
+    public void setConvertMap(Map convert) {
         this.convert = convert;
     }
 }

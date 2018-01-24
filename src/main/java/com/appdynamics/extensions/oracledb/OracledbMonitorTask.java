@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Created by bhuvnesh.kumar on 1/23/18.
  */
-public class OracledbMonitorTask  implements AMonitorTaskRunnable {
+public class OracledbMonitorTask implements AMonitorTaskRunnable {
 
     private long previousTimestamp;
     private long currentTimestamp;
@@ -133,9 +133,9 @@ public class OracledbMonitorTask  implements AMonitorTaskRunnable {
     public void onTaskComplete() {
         logger.debug("Task Complete");
         if (status == true) {
-            metricWriter.printMetric(metricPrefix + "|" + (String) server.get("displayName")+ "|Status", "1", "AVERAGE", "AVERAGE", "INDIVIDUAL");
+            metricWriter.printMetric(metricPrefix + "|" + (String) server.get("displayName") + "|Status", "1", "AVERAGE", "AVERAGE", "INDIVIDUAL");
         } else {
-            metricWriter.printMetric(metricPrefix + "|" + (String) server.get("displayName")+ "|Status", "0", "AVERAGE", "AVERAGE", "INDIVIDUAL");
+            metricWriter.printMetric(metricPrefix + "|" + (String) server.get("displayName") + "|Status", "0", "AVERAGE", "AVERAGE", "INDIVIDUAL");
         }
     }
 

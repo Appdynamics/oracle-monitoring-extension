@@ -14,7 +14,7 @@ import java.util.Map;
 public class ColumnGenerator {
 
     public List<Column> getColumns(Map query) {
-        AssertUtils.assertNotNull(query.get("columns"),"Queries need to have columns configured.");
+        AssertUtils.assertNotNull(query.get("columns"), "Queries need to have columns configured.");
 
         Map<String, Map<String, String>> filter = Maps.newLinkedHashMap();
         filter = filterMap(query, "columns");
@@ -23,14 +23,14 @@ public class ColumnGenerator {
         return columns.getColumns();
     }
 
-    private Map<String, Map<String, String>> filterMap( Map<String, Map<String, String>> mapOfMaps, String filterKey) {
+    private Map<String, Map<String, String>> filterMap(Map<String, Map<String, String>> mapOfMaps, String filterKey) {
         Map<String, Map<String, String>> filteredOnKeyMap = Maps.newLinkedHashMap();
 
         if (Strings.isNullOrEmpty(filterKey))
             return filteredOnKeyMap;
 
         if (mapOfMaps.containsKey(filterKey)) {
-            filteredOnKeyMap.put(filterKey,mapOfMaps.get(filterKey));
+            filteredOnKeyMap.put(filterKey, mapOfMaps.get(filterKey));
         }
 
         return filteredOnKeyMap;

@@ -19,14 +19,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.appdynamics.extensions.oracledb.OracledbMonitorTask;
-
 import static com.appdynamics.extensions.TaskInputArgs.PASSWORD_ENCRYPTED;
 
 /**
  * Created by bhuvnesh.kumar on 1/23/18.
  */
-public class OracledbMonitor  extends ABaseMonitor {
+public class OracledbMonitor extends ABaseMonitor {
 
     private static final Logger logger = LoggerFactory.getLogger(OracledbMonitor.class);
     private long previousTimestamp = 0;
@@ -76,7 +74,7 @@ public class OracledbMonitor  extends ABaseMonitor {
         //OracledbMonitorTask od = new OracledbMonitorTask();
 
 
-                return new OracledbMonitorTask.Builder()
+        return new OracledbMonitorTask.Builder()
                 .metricWriter(serviceProvider.getMetricWriteHelper())
                 .metricPrefix(configuration.getMetricPrefix())
                 .jdbcAdapter(jdbcAdapter)
@@ -98,18 +96,16 @@ public class OracledbMonitor  extends ABaseMonitor {
         if (listOfMaps != null) {
             for (Map amap : listOfMaps) {
                 for (Object key : amap.keySet()) {
-                    if (key.toString().equals("password") ) {
+                    if (key.toString().equals("password")) {
                         String password;
 
-                        if(Strings.isNullOrEmpty((String) amap.get(key))){
+                        if (Strings.isNullOrEmpty((String) amap.get(key))) {
                             password = getPassword(server, "");
-                        }
-                        else{
-                            password = (String) amap.get(key) ;
+                        } else {
+                            password = (String) amap.get(key);
                         }
                         connectionProperties.put((String) key, password);
-                    }
-                    else {
+                    } else {
                         connectionProperties.put((String) key, (String) amap.get(key));
                     }
                 }

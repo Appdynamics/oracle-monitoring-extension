@@ -1,0 +1,319 @@
+# Make sure the metric prefix ends with a |
+#This will create this metric in all the tiers, under this path.
+#metricPrefix: "Custom Metrics|SQL|"
+#This will create it in specific Tier. Replace <ComponentID> with TierID
+#metricPrefix: "Server|Component:<ComponentID>|Custom Metrics|Tibco ASG|"
+metricPrefix: "Custom Metrics|SQL|"
+
+dbServers:
+    - displayName: "Vertica"
+      connectionUrl: "jdbc:vertica://192.168.57.102:5433/VMart"
+      driver: "com.vertica.jdbc.Driver"
+
+      connectionProperties:
+        - user: "dbadmin"
+        - password: "password"
+
+      #Needs to be used in conjunction with `encryptionKey`. Please read the extension documentation to generate encrypted password
+      #encryptedPassword: ""
+
+      #Needs to be used in conjunction with `encryptedPassword`. Please read the extension documentation to generate encrypted password
+      #encryptionKey: "welcome"
+
+      # Replaces characters in metric name with the specified characters.
+      # "replace" takes any regular expression
+      # "replaceWith" takes the string to replace the matched characters
+
+      metricCharacterReplacer:
+        - replace: "%"
+          replaceWith: ""
+        - replace: ","
+          replaceWith: "-"
+
+
+      queries:
+        - displayName: "Active Events"
+          queryStmt: "Select NODE_NAME, EVENT_CODE, EVENT_ID, EVENT_POSTED_COUNT from Active_events"
+          columns:
+            - name: "NODE_NAME"
+              type: "metricPathName"
+
+            - name: "EVENT_ID"
+              type: "metricPathName"
+
+            - name: "EVENT_CODE"
+              type: "metricValue"
+
+            - name: "EVENT_POSTED_COUNT"
+              type: "metricValue"
+
+        - displayName: "Disk Storage"
+          queryStmt: "Select NODE_NAME, STORAGE_USAGE, RANK, THROUGHPUT, LATENCY, DISK_BLOCK_SIZE_BYTES, DISK_SPACE_USED_BLOCKS, DISK_SPACE_USED_MB, DISK_SPACE_FREE_BLOCKS, DISK_SPACE_FREE_MB, DISK_SPACE_FREE_PERCENT from DISK_STORAGE"
+          columns:
+            - name: "NODE_NAME"
+              type: "metricPathName"
+
+            - name: "STORAGE_USAGE"
+              type: "metricPathName"
+
+            - name: "RANK"
+              type: "metricValue"
+
+            - name: "THROUGHPUT"
+              type: "metricValue"
+
+            - name: "LATENCY"
+              type: "metricValue"
+
+            - name: "DISK_BLOCK_SIZE_BYTES"
+              type: "metricValue"
+
+            - name: "DISK_SPACE_USED_BLOCKS"
+              type: "metricValue"
+
+            - name: "DISK_SPACE_USED_MB"
+              type: "metricValue"
+
+            - name: "DISK_SPACE_FREE_BLOCKS"
+              type: "metricValue"
+
+            - name: "DISK_SPACE_FREE_MB"
+              type: "metricValue"
+
+            - name: "DISK_SPACE_FREE_PERCENT"
+              type: "metricValue"
+
+        - displayName: "Host Resources"
+          queryStmt: "Select HOST_NAME, OPEN_FILES_LIMIT, THREADS_LIMIT, CORE_FILE_LIMIT_MAX_SIZE_BYTES, PROCESSOR_COUNT, OPENED_FILE_COUNT, OPENED_SOCKET_COUNT, OPENED_NONFILE_NONSOCKET_COUNT, TOTAL_MEMORY_BYTES, TOTAL_MEMORY_FREE_BYTES,  TOTAL_BUFFER_MEMORY_BYTES, TOTAL_MEMORY_CACHE_BYTES, TOTAL_SWAP_MEMORY_BYTES, TOTAL_SWAP_MEMORY_FREE_BYTES, DISK_SPACE_FREE_MB, DISK_SPACE_USED_MB, DISK_SPACE_TOTAL_MB from HOST_RESOURCES"
+          columns:
+            - name: "HOST_NAME"
+              type: "metricPathName"
+
+            - name: "OPEN_FILES_LIMIT"
+              type: "metricValue"
+
+            - name: "THREADS_LIMIT"
+              type: "metricValue"
+
+            - name: "CORE_FILE_LIMIT_MAX_SIZE_BYTES"
+              type: "metricValue"
+
+            - name: "PROCESSOR_COUNT"
+              type: "metricValue"
+
+            - name: "OPENED_FILE_COUNT"
+              type: "metricValue"
+
+            - name: "OPENED_SOCKET_COUNT"
+              type: "metricValue"
+
+            - name: "OPENED_NONFILE_NONSOCKET_COUNT"
+              type: "metricValue"
+
+            - name: "TOTAL_MEMORY_BYTES"
+              type: "metricValue"
+
+            - name: "TOTAL_MEMORY_FREE_BYTES"
+              type: "metricValue"
+
+            - name: "TOTAL_BUFFER_MEMORY_BYTES"
+              type: "metricValue"
+
+            - name: "TOTAL_MEMORY_CACHE_BYTES"
+              type: "metricValue"
+
+            - name: "TOTAL_SWAP_MEMORY_BYTES"
+              type: "metricValue"
+
+            - name: "TOTAL_SWAP_MEMORY_FREE_BYTES"
+              type: "metricValue"
+
+            - name: "DISK_SPACE_FREE_MB"
+              type: "metricValue"
+
+            - name: "DISK_SPACE_USED_MB"
+              type: "metricValue"
+
+            - name: "DISK_SPACE_TOTAL_MB"
+              type: "metricValue"
+
+        - displayName: "IO Usage"
+          queryStmt: "Select NODE_NAME, READ_KBYTES_PER_SEC, WRITTEN_KBYTES_PER_SEC from IO_USAGE"
+          columns:
+            - name: "NODE_NAME"
+              type: "metricPathName"
+
+            - name: "READ_KBYTES_PER_SEC"
+              type: "metricValue"
+
+            - name: "WRITTEN_KBYTES_PER_SEC"
+              type: "metricValue"
+
+        - displayName: "Node Status"
+          queryStmt: "Select NODE_NAME, NODE_STATE from NODE_STATES"
+          columns:
+            - name: "NODE_NAME"
+              type: "metricPathName"
+
+            - name: "NODE_STATE"
+              type: "metricValue"
+              properties:
+                convert:
+                  "INITIALIZING" : 0
+                  "UP" : 1
+                  "DOWN" : 2
+                  "READY" : 3
+                  "UNSAFE" : 4
+                  "SHUTDOWN" : 5
+                  "RECOVERING" : 6
+
+        - displayName: "Query Metrics"
+          queryStmt: "Select NODE_NAME, ACTIVE_USER_SESSION_COUNT, ACTIVE_SYSTEM_SESSION_COUNT, TOTAL_USER_SESSION_COUNT, TOTAL_SYSTEM_SESSION_COUNT, TOTAL_ACTIVE_SESSION_COUNT, TOTAL_SESSION_COUNT, RUNNING_QUERY_COUNT, EXECUTED_QUERY_COUNT  from QUERY_METRICS "
+          columns:
+            - name: "NODE_NAME"
+              type: "metricPathName"
+
+            - name: "ACTIVE_USER_SESSION_COUNT"
+              type: "metricValue"
+
+            - name: "ACTIVE_SYSTEM_SESSION_COUNT"
+              type: "metricValue"
+
+            - name: "TOTAL_USER_SESSION_COUNT"
+              type: "metricValue"
+
+            - name: "TOTAL_SYSTEM_SESSION_COUNT"
+              type: "metricValue"
+
+            - name: "TOTAL_ACTIVE_SESSION_COUNT"
+              type: "metricValue"
+
+            - name: "TOTAL_SESSION_COUNT"
+              type: "metricValue"
+
+            - name: "RUNNING_QUERY_COUNT"
+              type: "metricValue"
+
+            - name: "EXECUTED_QUERY_COUNT"
+              type: "metricValue"
+
+        - displayName: "Resource Usage"
+          queryStmt: "SELECT NODE_NAME, REQUEST_COUNT, LOCAL_REQUEST_COUNT, ACTIVE_THREAD_COUNT, OPEN_FILE_HANDLE_COUNT, MEMORY_REQUESTED_KB, ADDRESS_SPACE_REQUESTED_KB, WOS_USED_BYTES, WOS_ROW_COUNT, ROS_USED_BYTES, ROS_ROW_COUNT, TOTAL_ROW_COUNT, TOTAL_USED_BYTES, TOKENS_USED FROM RESOURCE_USAGE "
+          columns:
+            - name: "NODE_NAME"
+              type: "metricPathName"
+
+            - name: "REQUEST_COUNT"
+              type: "metricValue"
+
+            - name: "LOCAL_REQUEST_COUNT"
+              type: "metricValue"
+
+            - name: "ACTIVE_THREAD_COUNT"
+              type: "metricValue"
+
+            - name: "OPEN_FILE_HANDLE_COUNT"
+              type: "metricValue"
+
+            - name: "MEMORY_REQUESTED_KB"
+              type: "metricValue"
+
+            - name: "ADDRESS_SPACE_REQUESTED_KB"
+              type: "metricValue"
+
+            - name: "WOS_USED_BYTES"
+              type: "metricValue"
+
+            - name: "WOS_ROW_COUNT"
+              type: "metricValue"
+
+            - name: "ROS_USED_BYTES"
+              type: "metricValue"
+
+            - name: "ROS_ROW_COUNT"
+              type: "metricValue"
+
+            - name: "TOTAL_ROW_COUNT"
+              type: "metricValue"
+
+            - name: "TOTAL_USED_BYTES"
+              type: "metricValue"
+
+            - name: "TOKENS_USED"
+              type: "metricValue"
+
+        - displayName: "System Resource Usage"
+          queryStmt: "SELECT NODE_NAME, AVERAGE_MEMORY_USAGE_PERCENT, AVERAGE_CPU_USAGE_PERCENT, NET_RX_KBYTES_PER_SECOND, NET_TX_KBYTES_PER_SECOND, IO_READ_KBYTES_PER_SECOND, IO_WRITTEN_KBYTES_PER_SECOND FROM SYSTEM_RESOURCE_USAGE"
+          columns:
+            - name: "NODE_NAME"
+              type: "metricPathName"
+
+            - name: "AVERAGE_MEMORY_USAGE_PERCENT"
+              type: "metricValue"
+
+            - name: "AVERAGE_CPU_USAGE_PERCENT"
+              type: "metricValue"
+
+            - name: "NET_RX_KBYTES_PER_SECOND"
+              type: "metricValue"
+
+            - name: "NET_TX_KBYTES_PER_SECOND"
+              type: "metricValue"
+
+            - name: "IO_READ_KBYTES_PER_SECOND"
+              type: "metricValue"
+
+            - name: "IO_WRITTEN_KBYTES_PER_SECOND"
+              type: "metricValue"
+
+        - displayName: "System"
+          queryStmt: "SELECT CURRENT_EPOCH, AHM_EPOCH, LAST_GOOD_EPOCH, REFRESH_EPOCH, DESIGNED_FAULT_TOLERANCE, NODE_COUNT, NODE_DOWN_COUNT, CURRENT_FAULT_TOLERANCE, CATALOG_REVISION_NUMBER, WOS_USED_BYTES, WOS_ROW_COUNT, ROS_USED_BYTES, ROS_ROW_COUNT, TOTAL_USED_BYTES, TOTAL_ROW_COUNT FROM SYSTEM"
+          columns:
+            - name: "CURRENT_EPOCH"
+              type: "metricValue"
+
+            - name: "AHM_EPOCH"
+              type: "metricValue"
+
+            - name: "LAST_GOOD_EPOCH"
+              type: "metricValue"
+
+            - name: "REFRESH_EPOCH"
+              type: "metricValue"
+
+            - name: "DESIGNED_FAULT_TOLERANCE"
+              type: "metricValue"
+
+            - name: "NODE_COUNT"
+              type: "metricValue"
+
+            - name: "NODE_DOWN_COUNT"
+              type: "metricValue"
+
+            - name: "CURRENT_FAULT_TOLERANCE"
+              type: "metricValue"
+
+            - name: "CATALOG_REVISION_NUMBER"
+              type: "metricValue"
+
+            - name: "WOS_USED_BYTES"
+              type: "metricValue"
+
+            - name: "WOS_ROW_COUNT"
+              type: "metricValue"
+
+            - name: "ROS_USED_BYTES"
+              type: "metricValue"
+
+            - name: "ROS_ROW_COUNT"
+              type: "metricValue"
+
+            - name: "TOTAL_USED_BYTES"
+              type: "metricValue"
+
+            - name: "TOTAL_ROW_COUNT"
+              type: "metricValue"
+
+
+numberOfThreads: 5
+

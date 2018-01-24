@@ -1,0 +1,74 @@
+# Make sure the metric prefix ends with a |
+#This will create this metric in all the tiers, under this path.
+metricPrefix: "Custom Metrics|SQL|Bh1"
+#This will create it in specific Tier. Replace <ComponentID> with TierID
+#metricPrefix: "Server|Component:<ComponentID>|Custom Metrics|SQL|"
+
+
+dbServers:
+    - displayName: "FRB-Instance1"
+      connectionUrl: "jdbc:sqlserver://192.168.57.101:1433"
+      # connectionUrl: "jdbc:sqlserver://192.168.57.101:1433;user=bhuv;password=12345;databaseName=frb-test;"
+      driver: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+
+      connectionProperties:
+        - user: "bhuv"
+        - password: ""
+        - databaseName: "frb-test"
+        - ReadOnly: "true"
+
+      #Needs to be used in conjunction with `encryptionKey`. Please read the extension documentation to generate encrypted password
+      encryptedPassword: "9XdTa7+McBwP2g2xSpyNsg=="
+
+      #Needs to be used in conjunction with `encryptedPassword`. Please read the extension documentation to generate encrypted password
+      encryptionKey: "myKey"
+
+      # Replaces characters in metric name with the specified characters.
+      # "replace" takes any regular expression
+      # "replaceWith" takes the string to replace the matched characters
+
+      metricCharacterReplacer:
+        - replace: "%"
+          replaceWith: ""
+        - replace: ","
+          replaceWith: "-"
+
+
+      queries:
+        - displayName: "Active Events"
+          queryStmt: "SELECT TRN_TARGET_OPERATION, TRN_FACADE_DURATION, TRN_ROUTER_DURATION FROM ASG_TRANSACTIONS WHERE TRN_TARGET_OPERATION IN ('target1','target2','target3','target4','target5')"
+          columns:
+            - name: "TRN_TARGET_OPERATION"
+              type: "metricPathName"
+
+            - name: "TRN_FACADE_DURATION"
+              type: "metricValue"
+
+            - name: "TRN_ROUTER_DURATION"
+              type: "metricValue"
+
+        - displayName: "IO Usage"
+          queryStmt: "SELECT TRN_TARGET_OPERATION,TRN_ERROR_CODE,COUNT(TRN_ERROR_CODE) ERROR_CODE_COUNT FROM ASG_TRANSACTIONS WHERE TRN_ERROR_CODE in (1001,2002,3003,4004,5005) AND TRN_TARGET_OPERATION in ('target1','target2','target3','target4','target5') GROUP BY TRN_TARGET_OPERATION, TRN_ERROR_CODE"
+          columns:
+            - name: "TRN_TARGET_OPERATION"
+              type: "metricPathName"
+
+            - name: "TRN_ERROR_CODE"
+              type: "metricPathName"
+
+            - name: "ERROR_CODE_COUNT"
+#            - name: "COUNT(TRN_ERROR_CODE) ERROR_CODE_COUNT"
+              type: "metricValue"
+              properties:
+                aggregationType: "SUM"
+                timeRollupType: "SUM"
+                clusterRollupType: "COLLECTIVE"
+
+
+numberOfThreads: 5
+
+#Run it as a scheduled task instead of running every minute.
+#If you want to run this every minute, comment this out
+taskSchedule:
+  numberOfThreads: 1
+  taskDelaySeconds: 10

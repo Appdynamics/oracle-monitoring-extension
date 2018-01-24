@@ -59,18 +59,8 @@ public class MetricCollector {
                 }
             }
         }
-        print(list_of_metrics);
-
         return list_of_metrics;
     }
-
-    private void print(List<Metric> metrics){
-
-        for(Metric metric: metrics){
-            System.out.println(metric.getMetricPath() + " :: " + metric.getMetricValue());
-        }
-    }
-
 
     private String replaceCharacter(String metricPath) {
 
@@ -84,7 +74,6 @@ public class MetricCollector {
         }
         return metricPath;
     }
-
 
     private String getMetricPrefix(String dbServerDisplayName, String queryDisplayName) {
         return metricPrefix + METRIC_SEPARATOR + dbServerDisplayName + METRIC_SEPARATOR + queryDisplayName;
