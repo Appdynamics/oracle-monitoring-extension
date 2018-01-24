@@ -1,8 +1,8 @@
 # Make sure the metric prefix ends with a |
 #This will create this metric in all the tiers, under this path.
-metricPrefix: "Custom Metrics|Oracle|Bh3"
+metricPrefix: "Custom Metrics|OracleDB|"
 #This will create it in specific Tier. Replace <ComponentID> with TierID
-#metricPrefix: "Server|Component:<ComponentID>|Custom Metrics|SQL|"
+#metricPrefix: "Server|Component:<ComponentID>|Custom Metrics|OracleDB|"
 
 
 dbServers:
@@ -10,10 +10,6 @@ dbServers:
       connectionUrl: "jdbc:oracle:thin:@192.168.57.106:1521:orcl12c"
 #      connectionUrl: "jdbc:oracle:thin:system/oracle@192.168.57.106:1521:orcl12c"
 
-      # connectionUrl: "jdbc:sqlserver://192.168.57.101:1433;user=bhuv;password=12345;databaseName=frb-test;"
-#      driver: "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-#      driver: "oracle.jdbc.driver.OracleDriver"
-#        ("jdbc:oracle:thin:@myhost:1521:orcl", "scott", "tiger");
       driver: "oracle.jdbc.OracleDriver"
 
 

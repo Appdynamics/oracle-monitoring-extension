@@ -35,12 +35,12 @@ public class OracledbMonitor  extends ABaseMonitor {
 
     @Override
     protected String getDefaultMetricPrefix() {
-        return "Custom Metrics|SQL";
+        return "Custom Metrics|OracleDB";
     }
 
     @Override
     public String getMonitorName() {
-        return "SQL Monitor";
+        return "OracleDB Monitor";
     }
 
     @Override

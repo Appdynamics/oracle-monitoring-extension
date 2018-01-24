@@ -21,11 +21,11 @@
         <java-task>
             <!-- Use regular classpath foo.jar;bar.jar -->
             <!-- append JDBC driver jar like the following example:  -->
-            <!-- <classpath>sql-monitoring-extension.jar;jar-file-t0-connect-to-db.jar</classpath> -->
+            <!-- <classpath>oracledb-monitoring-extension.jar;jar-file-t0-connect-to-db.jar</classpath> -->
 
             <classpath>oracledb-monitoring-extension.jar;</classpath>
 
-            <impl-class>com.appdynamics.extensions.sql.SQLMonitor</impl-class>
+            <impl-class>com.appdynamics.extensions.oracledb.OracledbMonitor</impl-class>
         </java-task>
     </monitor-run-task>
 </monitor>
