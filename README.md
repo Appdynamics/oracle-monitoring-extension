@@ -407,7 +407,7 @@ The metrics in the supplied code are retrieved from
 all of which are, to the author's knowledge, not subject to additional
 licensing of the Oracle Diagnostics Pack. See Oracle's "Options and
 Packs" documentation:
-[http://docs.oracle.com/cd/E11882\_01/license.112/e10594/options.htm\#CIHIHDDJ](http://docs.oracle.com/cd/E11882_01/license.112/e10594/options.htm#CIHIHDDJ)
+[https://docs.oracle.com/cd/B28359_01/license.111/b28287/options.htm#DBLIC138](https://docs.oracle.com/cd/B28359_01/license.111/b28287/options.htm#DBLIC138)
 
 If you plan on extending this code using data dictionary views of the
 Diagnostics Pack (e.g., DBA\_HIST\_% views), you might want to make use
@@ -422,3 +422,11 @@ Find out more in the [AppDynamics Exchange](https://www.appdynamics.com/communit
 
 ## Support
 For any questions or feature request, please contact [AppDynamics Center of Excellence](mailto:help@appdynamics.com).
+
+## Change Log ##
+| Param | Description |
+| ----- | ----- |
+| 2.3 | Moved to Extensions 2.0 framework, complete revamp|
+| 2.2 | Provides standard set of metrics |
+
+[troubleshooting-document]: https://community.appdynamics.com/t5/Knowledge-Base/How-to-troubleshoot-missing-custom-metrics-or-extensions-metrics/ta-p/28695

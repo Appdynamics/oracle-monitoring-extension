@@ -71,8 +71,6 @@ public class OracledbMonitor extends ABaseMonitor {
         String connUrl = createConnectionUrl(server);
         Map<String, String> connectionProperties = getConnectionProperties(server);
         JDBCConnectionAdapter jdbcAdapter = JDBCConnectionAdapter.create(connUrl, connectionProperties);
-        //OracledbMonitorTask od = new OracledbMonitorTask();
-
 
         return new OracledbMonitorTask.Builder()
                 .metricWriter(serviceProvider.getMetricWriteHelper())
