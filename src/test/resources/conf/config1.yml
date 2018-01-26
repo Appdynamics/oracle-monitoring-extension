@@ -1,0 +1,48 @@
+# Make sure the metric prefix ends with a |
+#This will create this metric in all the tiers, under this path.
+#metricPrefix: "Custom Metrics|SQL|"
+#This will create it in specific Tier. Replace <ComponentID> with TierID
+#metricPrefix: "Server|Component:<ComponentID>|Custom Metrics|Tibco ASG|"
+metricPrefix: "Custom Metrics"
+
+dbServers:
+    - displayName: "Vertica"
+      connectionUrl: "jdbc:vertica://192.168.57.102:5433/VMart"
+      driver: "com.vertica.jdbc.Driver"
+
+      connectionProperties:
+        - user: "dbadmin"
+        - password: "password"
+
+      #Needs to be used in conjunction with `encryptionKey`. Please read the extension documentation to generate encrypted password
+      #encryptedPassword: ""
+
+      #Needs to be used in conjunction with `encryptedPassword`. Please read the extension documentation to generate encrypted password
+      #encryptionKey: "welcome"
+
+      # Replaces characters in metric name with the specified characters.
+      # "replace" takes any regular expression
+      # "replaceWith" takes the string to replace the matched characters
+
+      metricCharacterReplacer:
+        - replace: "%"
+          replaceWith: ""
+        - replace: ","
+          replaceWith: "-"
+
+
+      queries:
+        - displayName: "Active Events"
+          queryStmt: "Select NODE_NAME, EVENT_CODE, EVENT_ID, EVENT_POSTED_COUNT from Active_events"
+          columns:
+            - name: "NODE_NAME"
+              type: "metricPathName"
+
+            - name: "EVENT_ID"
+              type: "metricPathName"
+
+            - name: "EVENT_CODE"
+              type: "metricValue"
+
+            - name: "EVENT_POSTED_COUNT"
+              type: "metricValue"
