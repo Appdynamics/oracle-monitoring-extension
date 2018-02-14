@@ -1,31 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <!--
-  ~ Copyright 2013. AppDynamics LLC and its affiliates.
-  ~ All Rights Reserved.
-  ~ This is unpublished proprietary source code of AppDynamics LLC and its affiliates.
-  ~ The copyright notice above does not evidence any actual or intended publication of such source code.
+  ~   Copyright 2018. AppDynamics LLC and its affiliates.
+  ~   All Rights Reserved.
+  ~   This is unpublished proprietary source code of AppDynamics LLC and its affiliates.
+  ~   The copyright notice above does not evidence any actual or intended publication of such source code.
+  ~
   -->
 
 <monitor>
-	<name>OracleMonitor</name>
-	<type>managed</type>
+    <name>OracleDBMonitor</name>
+    <type>managed</type>
     <enabled>true</enabled>
-	<description>Monitors Oracle database systems</description>
-	<monitor-configuration>
-	</monitor-configuration>
-	<monitor-run-task>
-		<execution-style>periodic</execution-style>
-		<execution-frequency-in-seconds>60</execution-frequency-in-seconds>
-		<name>Oracle Monitor Run Task</name>
-		<display-name>Oracle Monitor Task</display-name>
-		<description>Oracle Monitor Task</description>
-		<type>java</type>
-		<execution-timeout-in-secs>60</execution-timeout-in-secs>
-		<task-arguments>
+    <description>Run arbitary queries and monitor their return values for Oracle Database</description>
+    <monitor-configuration></monitor-configuration>
+    <monitor-run-task>
+        <execution-style>periodic</execution-style>
+        <execution-frequency-in-seconds>60</execution-frequency-in-seconds>
+        <name>OracleDBMonitor Task</name>
+        <display-name>OracleDBMonitor Task</display-name>
+        <description>OracleDBMonitor Task</description>
+        <type>java</type>
+        <execution-timeout-in-seconds>120</execution-timeout-in-seconds>
+        <task-arguments>
+            <!-- config file-->
             <argument name="config-file" is-required="true" default-value="monitors/OracleDBMonitor/config.yml"/>
-		</task-arguments>
-		<java-task>
-			<classpath>oracle-monitoring-extension.jar</classpath>
-			<impl-class>com.appdynamics.extensions.oracle.OracleDbMonitor</impl-class>
-		</java-task>
-	</monitor-run-task>
+        </task-arguments>
+        <java-task>
+            <!-- Use regular classpath foo.jar;bar.jar -->
+            <!-- append JDBC driver jar like the following example:  -->
+            <!-- <classpath>oracledb-monitoring-extension.jar;jar-file-t0-connect-to-db.jar</classpath> -->
+
+            <classpath>oracledb-monitoring-extension.jar;</classpath>
+
+            <impl-class>com.appdynamics.extensions.oracledb.OracledbMonitor</impl-class>
+        </java-task>
+    </monitor-run-task>
 </monitor>

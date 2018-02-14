@@ -1,0 +1,15 @@
+columns:
+  - name: "NODE_NAME"
+    type: "metricPathName"
+
+  - name: "NODE_STATE"
+    type: "metricValue"
+    properties:
+      convert:
+        "INITIALIZING" : 0
+        "UP" : 1
+        "DOWN" : 2
+        "READY" : 3
+        "UNSAFE" : 4
+        "SHUTDOWN" : 5
+        "RECOVERING" : 6

@@ -1,0 +1,9 @@
+columns:
+  - name: "NODE_NAME"
+    type: "metricPathName"
+
+  - name: "AVERAGE_MEMORY_USAGE_PERCENT"
+    type: "metricValue"
+
+  - name: "AVERAGE_CPU_USAGE_PERCENT"
+    type: "metricValue"
