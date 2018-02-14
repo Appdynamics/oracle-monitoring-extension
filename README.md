@@ -16,7 +16,7 @@ that gather metrics based on the following categories.
 This extension also allows you to query your Oracle Database and view those results on the AppDynamics Metric browser
 and hence allowing you to build dashboards and set Health Rules based on the output of the extension.
 
-## Prerequisite
+## Prerequisites
 The Oracle DB extension needs an Oracle user account on every Oracle instance that is to be monitored. You might use an existing account with appropriate rights; however, a dedicated account will be a better solution in terms of security and manageability.
     -   Example script for account creation (run this with a DBA user):
 
@@ -191,7 +191,7 @@ monitor.xml file.!
 4. Restart the Machine Agent.
 
 
-### How to Connect to your Database with the extension ###
+#### How to Connect to your Database with the extension ####
 Lets take a look at some sample connection information: 
 ```
 dbServers:
@@ -230,7 +230,7 @@ In this case we do add the Database Name as the last part of the connectionUrl *
 You will have to confirm how your database takes in the login information and based on that provide the information in your config.yaml in order to successfully establish a connection.
 
 
-### Explanation of the type of queries that are supported with this extension ###
+#### Explanation of the type of queries that are supported with this extension ####
 Only queries that start with **SELECT** are allowed! Your query should only return one row at a time. 
 
 It is suggested that you only  return one row at a time because if it returns a full table with enormous amount of data, it may overwhelm the system and it may take a very long time to fetch that data.  
