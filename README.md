@@ -299,18 +299,6 @@ In order to make that happen, you could use the **"convert"** property and assig
 The extension will automatically convert the text value to the corresponding number.
 
 **NOTE:** In order to use this feature, please make sure that the value that is being returned is EXACTLY the same as you have listed in the config.yaml, otherwise the extension will throw an error.
- 
-## Troubleshooting ##
-
-Please follow the steps listed in this [troubleshooting-document] in order to troubleshoot your issue. 
-These are a set of common issues that customers might have faced during the installation of the extension. 
-If these don't solve your issue, please follow the last step on the [troubleshooting-document] to contact the support team.
-
-## Credentials Encryption ##
-
-Please visit [this page ](https://community.appdynamics.com/t5/Knowledge-Base/How-to-use-Password-Encryption-with-Extensions/ta-p/29397)to get detailed instructions on password encryption. The steps in this document will guide you through the whole process.
-If you want to use password encryption, please send arguments as connectionProperties. You will have to fill in the encrypted Password and Encryption Key fields in the config but you will also have to give an empty "" value to the password field and the encrypted password will be automatically picked up.
-
 
 
 ## Metrics
@@ -423,13 +411,28 @@ Always feel free to fork and contribute any changes directly here on [GitHub](ht
 ## Community
 Find out more in the [AppDynamics Exchange](https://www.appdynamics.com/community/exchange/extension/oracle-database-monitoring-extension/) community.
 
-## Support
-For any questions or feature request, please contact [AppDynamics Center of Excellence](mailto:help@appdynamics.com).
+## Troubleshooting ##
+
+Please follow the steps listed in this [troubleshooting-document] in order to troubleshoot your issue. 
+These are a set of common issues that customers might have faced during the installation of the extension. 
+If these don't solve your issue, please follow the last step on the [troubleshooting-document] to contact the support team.
+
+## Credentials Encryption ##
+
+Please visit [this page ](https://community.appdynamics.com/t5/Knowledge-Base/How-to-use-Password-Encryption-with-Extensions/ta-p/29397)to get detailed instructions on password encryption. The steps in this document will guide you through the whole process.
+If you want to use password encryption, please send arguments as connectionProperties. You will have to fill in the encrypted Password and Encryption Key fields in the config but you will also have to give an empty "" value to the password field and the encrypted password will be automatically picked up.
+
+## Extensions Workbench ##
+Workbench is an inbuilt feature provided with each extension in order to assist you to fine tune the extension setup before you actually
+ deploy it on the controller. Please review the following document on [How to use the Extensions WorkBench ](https://community.appdynamics.com/t5/Knowledge-Base/How-to-use-the-Extensions-WorkBench/ta-p/30130)
+
+
 
 ## Change Log ##
 | Param | Description |
 | ----- | ----- |
-| 2.3 | Moved to Extensions 2.0 framework, Complete revamp of extension|
+| 2.4 | Moved to Extensions 2.0 framework, Complete revamp of extension|
+| 2.3 | Updated Licenses|
 | 2.2 | Provides standard set of metrics |
 
 [troubleshooting-document]: https://community.appdynamics.com/t5/Knowledge-Base/How-to-troubleshoot-missing-custom-metrics-or-extensions-metrics/ta-p/28695
