@@ -12,6 +12,7 @@ import com.appdynamics.extensions.ABaseMonitor;
 import com.appdynamics.extensions.TaskInputArgs;
 import com.appdynamics.extensions.TasksExecutionServiceProvider;
 import com.appdynamics.extensions.crypto.CryptoUtil;
+import com.appdynamics.extensions.util.AssertUtils;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 import com.singularity.ee.agent.systemagent.api.exception.TaskExecutionException;
@@ -77,6 +78,11 @@ public class OracledbMonitor extends ABaseMonitor {
 
     private OracledbMonitorTask createTask(Map server, TasksExecutionServiceProvider serviceProvider) throws IOException {
         String connUrl = createConnectionUrl(server);
+
+        AssertUtils.assertNotNull(serverName(server), "The 'displayName' field under the 'dbServers' section in config.yml is not initialised");
+        AssertUtils.assertNotNull(createConnectionUrl(server), "The 'connectionUrl' field under the 'dbServers' section in config.yml is not initialised");
+        AssertUtils.assertNotNull(driverName(server), "The 'driver' field under the 'dbServers' section in config.yml is not initialised");
+
         Map<String, String> connectionProperties = getConnectionProperties(server);
         JDBCConnectionAdapter jdbcAdapter = JDBCConnectionAdapter.create(connUrl, connectionProperties);
 
@@ -88,6 +94,15 @@ public class OracledbMonitor extends ABaseMonitor {
                 .currentTimestamp(currentTimestamp)
                 .server(server).build();
 
+    }
+    private String serverName(Map server) {
+        String name = Util.convertToString(server.get("displayName"), "");
+        return name;
+    }
+
+    private String driverName(Map server) {
+        String name = Util.convertToString(server.get("driver"), "");
+        return name;
     }
 
     private String createConnectionUrl(Map server) {
