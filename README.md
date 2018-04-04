@@ -1,6 +1,5 @@
-# AppDynamics Oracle Database - Monitoring Extension
+# Oracle Database Monitoring Extension
 
-This extension works only with the standalone machine agent.
 
 ## Use Case
 The Oracle Database is an object-relational database management system. 
@@ -17,6 +16,16 @@ This extension also allows you to query your Oracle Database and view those resu
 and hence allowing you to build dashboards and set Health Rules based on the output of the extension.
 
 ## Prerequisites
+
+In order to use this extension, you do need a [Standalone JAVA Machine Agent](https://docs.appdynamics.com/display/PRO44/Java+Agent) or [SIM Agent](https://docs.appdynamics.com/display/PRO44/Server+Visibility). 
+For more details on downloading these products, please visit [download.appdynamics.com](https://download.appdynamics.com/).
+
+This is very essential in order to establish a connection with the Oracle DB to get the metrics.
+The extension needs to be able to connect to Oracle DB in order to collect and send metrics. 
+To do this, you will have to either establish a remote connection in between the extension and the product, 
+or have an agent on the same machine running the product in order for the extension to collect and send the metrics.
+
+
 The Oracle DB extension needs an Oracle user account on every Oracle instance that is to be monitored. You might use an existing account with appropriate rights; however, a dedicated account will be a better solution in terms of security and manageability.
     -   Example script for account creation (run this with a DBA user):
 
@@ -39,6 +48,9 @@ The Oracle DB extension needs an Oracle user account on every Oracle instance th
 6. Restart the machineagent
 7. In the AppDynamics Metric Browser, look for: Application Infrastructure Performance  | \<Tier\> | Custom Metrics | Oracle  .
 8. If you're monitoring multiple Oracle DB instances, follow the above steps for every Oracle instance that you want to monitor.
+
+**Note:** Please place the extension in the **"monitors"** directory of your **Machine Agent** installation 
+directory. Do not place the extension in the **"extensions"** directory of your **Machine Agent** installation directory.
 
 ## Configuration ##
 Note : Please make sure to not use tab (\t) while editing yaml files. You may want to validate the yaml file using a [yaml validator](http://yamllint.com/)
@@ -300,6 +312,26 @@ The extension will automatically convert the text value to the corresponding num
 
 **NOTE:** In order to use this feature, please make sure that the value that is being returned is EXACTLY the same as you have listed in the config.yaml, otherwise the extension will throw an error.
 
+### Oracle Licensing
+The metrics in the supplied code are retrieved from
+
+```
+-   v$session
+-   v$sesstat
+-   v$sysmetric
+-   v$system_wait_class
+-   v$waitclassmetric
+```
+
+all of which are, to the author's knowledge, not subject to additional
+licensing of the Oracle Diagnostics Pack. See Oracle's "Options and
+Packs" documentation:
+[https://docs.oracle.com/cd/B28359_01/license.111/b28287/options.htm#DBLIC138](https://docs.oracle.com/cd/B28359_01/license.111/b28287/options.htm#DBLIC138)
+
+If you plan on extending this code using data dictionary views of the
+Diagnostics Pack (e.g., DBA\_HIST\_% views), you might want to make use
+of the argument "ash\_licensed" in monitor.xml to easily en-/disable
+usage of such code.
 
 ## Metrics
 Here is a summary of the collected metrics. Complete documentation of Oracle's website.
@@ -384,55 +416,43 @@ AppDynamics displays metric values as integers. Some metrics are therefore scale
 </table>
 
 
-## Oracle Licensing
-The metrics in the supplied code are retrieved from
 
-```
--   v$session
--   v$sesstat
--   v$sysmetric
--   v$system_wait_class
--   v$waitclassmetric
-```
 
-all of which are, to the author's knowledge, not subject to additional
-licensing of the Oracle Diagnostics Pack. See Oracle's "Options and
-Packs" documentation:
-[https://docs.oracle.com/cd/B28359_01/license.111/b28287/options.htm#DBLIC138](https://docs.oracle.com/cd/B28359_01/license.111/b28287/options.htm#DBLIC138)
+## Credentials Encryption
+Please visit [this](https://community.appdynamics.com/t5/Knowledge-Base/How-to-use-Password-Encryption-with-Extensions/ta-p/29397) page to get detailed instructions on password encryption. The steps in this document will guide you through the whole process.
 
-If you plan on extending this code using data dictionary views of the
-Diagnostics Pack (e.g., DBA\_HIST\_% views), you might want to make use
-of the argument "ash\_licensed" in monitor.xml to easily en-/disable
-usage of such code.
+## Extensions Workbench
+Workbench is an inbuilt feature provided with each extension in order to assist you to fine tune the extension setup before you actually deploy it on the controller. Please review the following [document](https://community.appdynamics.com/t5/Knowledge-Base/How-to-use-the-Extensions-WorkBench/ta-p/30130) for how to use the Extensions WorkBench
+
+## Troubleshooting
+Please follow the steps listed in the [extensions troubleshooting document](https://community.appdynamics.com/t5/Knowledge-Base/How-to-troubleshoot-missing-custom-metrics-or-extensions-metrics/ta-p/28695) in order to troubleshoot your issue. These are a set of common issues that customers might have faced during the installation of the extension. If these don't solve your issue, please follow the last step on the troubleshooting-document to contact the support team.
+
+## Support Tickets
+If after going through the Troubleshooting Document you have not been able to get your extension working, please file a ticket and add the following information.
+
+Please provide the following in order for us to assist you better.  
+
+1. Stop the running machine agent .
+2. Delete all existing logs under <MachineAgent>/logs .
+3. Please enable debug logging by editing the file <MachineAgent>/conf/logging/log4j.xml. Change the level value of the following <logger> elements to debug. 
+   ```
+   <logger name="com.singularity">
+   <logger name="com.appdynamics">
+     ```
+4. Start the machine agent and please let it run for 10 mins. Then zip and upload all the logs in the directory <MachineAgent>/logs/*.
+5. Attach the zipped <MachineAgent>/conf/* directory here.
+ 6. Attach the zipped <MachineAgent>/monitors/<ExtensionMonitor> directory here .
+
+For any support related questions, you can also contact help@appdynamics.com.
 
 ## Contributing
-Always feel free to fork and contribute any changes directly here on [GitHub](https://github.com/Appdynamics/oracle-monitoring-extension/).
+Always feel free to fork and contribute any changes directly via [GitHub](https://github.com/Appdynamics/vertica-monitoring-extension).
 
-## Community
-Find out more in the [AppDynamics Exchange](https://www.appdynamics.com/community/exchange/extension/oracle-database-monitoring-extension/) community.
-
-## Troubleshooting ##
-
-Please follow the steps listed in this [troubleshooting-document] in order to troubleshoot your issue. 
-These are a set of common issues that customers might have faced during the installation of the extension. 
-If these don't solve your issue, please follow the last step on the [troubleshooting-document] to contact the support team.
-
-## Credentials Encryption ##
-
-Please visit [this page ](https://community.appdynamics.com/t5/Knowledge-Base/How-to-use-Password-Encryption-with-Extensions/ta-p/29397)to get detailed instructions on password encryption. The steps in this document will guide you through the whole process.
-If you want to use password encryption, please send arguments as connectionProperties. You will have to fill in the encrypted Password and Encryption Key fields in the config but you will also have to give an empty "" value to the password field and the encrypted password will be automatically picked up.
-
-## Extensions Workbench ##
-Workbench is an inbuilt feature provided with each extension in order to assist you to fine tune the extension setup before you actually
- deploy it on the controller. Please review the following document on [How to use the Extensions WorkBench ](https://community.appdynamics.com/t5/Knowledge-Base/How-to-use-the-Extensions-WorkBench/ta-p/30130)
-
-
-
-## Change Log ##
-| Param | Description |
-| ----- | ----- |
-| 2.4 | Moved to Extensions 2.0 framework, Complete revamp of extension|
-| 2.3 | Updated Licenses|
-| 2.2 | Provides standard set of metrics |
-
-[troubleshooting-document]: https://community.appdynamics.com/t5/Knowledge-Base/How-to-troubleshoot-missing-custom-metrics-or-extensions-metrics/ta-p/28695
+## Version
+|          Name            |  Version   |
+|--------------------------|------------|
+|Extension Version         |2.4.3       |
+|Controller Compatibility  |3.7 or Later|
+|Product Tested On         |OracleDB |
+|Last Update               |04/04/2018 |
+|List of Changes           |[Change log](https://github.com/Appdynamics/oracle-monitoring-extension/blob/master/CHANGELOG.md) |

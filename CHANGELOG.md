@@ -1,4 +1,10 @@
 
+### Version 2.4.3
+  * Added HeartBeat Metric.
+  * Returns each unique row from the values returned from a query.
+  * Updated Logging.
+
+
 ### Version 2.4.2
 
 * Added timestamp logging
