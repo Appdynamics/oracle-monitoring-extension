@@ -9,10 +9,12 @@
 package com.appdynamics.extensions.oracledb;
 
 import com.appdynamics.extensions.metrics.Metric;
+import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +27,7 @@ public class MetricCollector {
     private String dbServerDisplayName;
     private String queryDisplayName;
     private List<Map<String, String>> metricReplacer;
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MetricCollector.class);
 
 
     public MetricCollector(String metricPrefix, String dbServerDisplayName, String queryDisplayName, List<Map<String, String>> metricReplacer) {
@@ -34,20 +37,17 @@ public class MetricCollector {
         this.metricReplacer = metricReplacer;
     }
 
-    public List<Metric> goingThroughResultSet(ResultSet resultSet, List<Column> columns) throws SQLException {
-        List<Metric> list_of_metrics = new ArrayList<Metric>();
+    public Map<String, Metric> goingThroughResultSet(ResultSet resultSet, List<Column> columns) throws SQLException {
+        Map<String, Metric> mapOfMetrics = new HashMap<String, Metric>();
+        logger.debug("Going through ResultSet for Database: {} and Query: {}", dbServerDisplayName, queryDisplayName);
+
         while (resultSet != null && resultSet.next()) {
-            String metricPath = "";
-            boolean metricPathAlreadyAdded = false;
-            metricPath = getMetricPrefix(dbServerDisplayName, queryDisplayName);
+            String metricPath = getMetricPrefix(dbServerDisplayName, queryDisplayName);
             for (Column c : columns) {
                 if (c.getType().equals("metricPathName")) {
-                    if (metricPathAlreadyAdded == false) {
-                        metricPath += METRIC_SEPARATOR + resultSet.getString(c.getName());
-                        metricPathAlreadyAdded = true;
-                    } else {
-                        metricPath += METRIC_SEPARATOR + resultSet.getString(c.getName());
-                    }
+                    metricPath += METRIC_SEPARATOR + resultSet.getString(c.getName());
+
+
                 } else if (c.getType().equals("metricValue")) {
                     String updatedMetricPath = metricPath + METRIC_SEPARATOR + c.getName();
                     String val = resultSet.getString(c.getName());
@@ -61,13 +61,12 @@ public class MetricCollector {
                         } else {
                             current_metric = new Metric(c.getName(), val, updatedMetricPath);
                         }
-                        list_of_metrics.add(current_metric);
-
+                        mapOfMetrics.put(updatedMetricPath, current_metric);
                     }
                 }
             }
         }
-        return list_of_metrics;
+        return mapOfMetrics;
     }
 
     private String replaceCharacter(String metricPath) {

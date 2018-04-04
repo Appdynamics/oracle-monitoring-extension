@@ -82,9 +82,9 @@ public class OracledbMonitor extends ABaseMonitor {
         AssertUtils.assertNotNull(serverName(server), "The 'displayName' field under the 'dbServers' section in config.yml is not initialised");
         AssertUtils.assertNotNull(createConnectionUrl(server), "The 'connectionUrl' field under the 'dbServers' section in config.yml is not initialised");
         AssertUtils.assertNotNull(driverName(server), "The 'driver' field under the 'dbServers' section in config.yml is not initialised");
-
         Map<String, String> connectionProperties = getConnectionProperties(server);
         JDBCConnectionAdapter jdbcAdapter = JDBCConnectionAdapter.create(connUrl, connectionProperties);
+        logger.debug("Creating Task");
 
         return new OracledbMonitorTask.Builder()
                 .metricWriter(serviceProvider.getMetricWriteHelper())
@@ -157,23 +157,5 @@ public class OracledbMonitor extends ABaseMonitor {
         return CryptoUtil.getPassword(cryptoMap);
     }
 
-    public static void main(String[] args) throws TaskExecutionException {
-
-        final OracledbMonitor monitor = new OracledbMonitor();
-        final Map<String, String> taskArgs = new HashMap<String, String>();
-
-        taskArgs.put(CONFIG_ARG, "src/test/resources/conf/config.yml");
-
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(new Runnable() {
-            public void run() {
-                try {
-                    monitor.execute(taskArgs, null);
-                } catch (Exception e) {
-                    logger.error("Error while running the task", e);
-                }
-            }
-        }, 2, 10, TimeUnit.SECONDS);
-    }
 
 }
