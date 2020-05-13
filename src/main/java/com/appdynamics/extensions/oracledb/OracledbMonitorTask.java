@@ -10,8 +10,8 @@ package com.appdynamics.extensions.oracledb;
 
 import com.appdynamics.extensions.AMonitorTaskRunnable;
 import com.appdynamics.extensions.MetricWriteHelper;
+import com.appdynamics.extensions.logging.ExtensionsLoggerFactory;
 import com.appdynamics.extensions.metrics.Metric;
-import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -33,7 +33,7 @@ public class OracledbMonitorTask implements AMonitorTaskRunnable {
     private JDBCConnectionAdapter jdbcAdapter;
     private Map server;
     private Boolean status = true;
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(OracledbMonitorTask.class);
+    private static final org.slf4j.Logger logger = ExtensionsLoggerFactory.getLogger(OracledbMonitorTask.class);
 
 
     public void run() {

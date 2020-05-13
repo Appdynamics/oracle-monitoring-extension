@@ -8,12 +8,11 @@
 
 package com.appdynamics.extensions.oracledb;
 
+import com.appdynamics.extensions.logging.ExtensionsLoggerFactory;
 import com.appdynamics.extensions.metrics.Metric;
-import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,7 @@ public class MetricCollector {
     private String dbServerDisplayName;
     private String queryDisplayName;
     private List<Map<String, String>> metricReplacer;
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MetricCollector.class);
+    private static final org.slf4j.Logger logger = ExtensionsLoggerFactory.getLogger(MetricCollector.class);
 
 
     public MetricCollector(String metricPrefix, String dbServerDisplayName, String queryDisplayName, List<Map<String, String>> metricReplacer) {

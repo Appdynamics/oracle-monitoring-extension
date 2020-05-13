@@ -24,9 +24,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by bhuvnesh.kumar on 1/23/18.

@@ -9,36 +9,28 @@
 package com.appdynamics.extensions.oracledb;
 
 import com.appdynamics.extensions.ABaseMonitor;
-import com.appdynamics.extensions.TaskInputArgs;
+import com.appdynamics.extensions.Constants;
 import com.appdynamics.extensions.TasksExecutionServiceProvider;
-import com.appdynamics.extensions.crypto.CryptoUtil;
+import com.appdynamics.extensions.logging.ExtensionsLoggerFactory;
 import com.appdynamics.extensions.util.AssertUtils;
+import com.appdynamics.extensions.util.CryptoUtils;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
-import com.singularity.ee.agent.systemagent.api.exception.TaskExecutionException;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import static com.appdynamics.extensions.TaskInputArgs.PASSWORD_ENCRYPTED;
 
 /**
  * Created by bhuvnesh.kumar on 1/23/18.
  */
 public class OracledbMonitor extends ABaseMonitor {
 
-    private static final Logger logger = LoggerFactory.getLogger(OracledbMonitor.class);
+    private static final Logger logger = ExtensionsLoggerFactory.getLogger(OracledbMonitor.class);
     private long previousTimestamp = 0;
     private long currentTimestamp = System.currentTimeMillis();
-    private static final String CONFIG_ARG = "config-file";
 
     @Override
     protected String getDefaultMetricPrefix() {
@@ -53,7 +45,7 @@ public class OracledbMonitor extends ABaseMonitor {
     @Override
     protected void doRun(TasksExecutionServiceProvider serviceProvider) {
 
-        List<Map<String, String>> servers = (List<Map<String, String>>) configuration.getConfigYml().get("dbServers");
+        List<Map<String, String>> servers = (List<Map<String, String>>) getContextConfiguration().getConfigYml().get("dbServers");
 
         previousTimestamp = currentTimestamp;
         currentTimestamp = System.currentTimeMillis();
@@ -70,9 +62,9 @@ public class OracledbMonitor extends ABaseMonitor {
     }
 
     @Override
-    protected int getTaskCount() {
-        List<Map<String, String>> servers = (List<Map<String, String>>) configuration.getConfigYml().get("dbServers");
-        return servers.size();
+    protected List<Map<String, ?>> getServers() {
+        List<Map<String, ?>> servers = (List<Map<String, ?>>) getContextConfiguration().getConfigYml().get("dbServers");
+        return servers;
     }
 
 
@@ -88,7 +80,7 @@ public class OracledbMonitor extends ABaseMonitor {
 
         return new OracledbMonitorTask.Builder()
                 .metricWriter(serviceProvider.getMetricWriteHelper())
-                .metricPrefix(configuration.getMetricPrefix())
+                .metricPrefix(getContextConfiguration().getMetricPrefix())
                 .jdbcAdapter(jdbcAdapter)
                 .previousTimestamp(previousTimestamp)
                 .currentTimestamp(currentTimestamp)
@@ -152,9 +144,9 @@ public class OracledbMonitor extends ABaseMonitor {
 
     private String getEncryptedPassword(String encryptionKey, String encryptedPassword) {
         Map<String, String> cryptoMap = Maps.newHashMap();
-        cryptoMap.put(PASSWORD_ENCRYPTED, encryptedPassword);
-        cryptoMap.put(TaskInputArgs.ENCRYPTION_KEY, encryptionKey);
-        return CryptoUtil.getPassword(cryptoMap);
+        cryptoMap.put(Constants.ENCRYPTED_PASSWORD, encryptedPassword);
+        cryptoMap.put(Constants.ENCRYPTION_KEY, encryptionKey);
+        return CryptoUtils.getPassword(cryptoMap);
     }
 
 
