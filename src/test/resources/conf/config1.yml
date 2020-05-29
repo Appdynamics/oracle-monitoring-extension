@@ -17,9 +17,6 @@ dbServers:
       #Needs to be used in conjunction with `encryptionKey`. Please read the extension documentation to generate encrypted password
       #encryptedPassword: ""
 
-      #Needs to be used in conjunction with `encryptedPassword`. Please read the extension documentation to generate encrypted password
-      #encryptionKey: "welcome"
-
       # Replaces characters in metric name with the specified characters.
       # "replace" takes any regular expression
       # "replaceWith" takes the string to replace the matched characters
@@ -46,3 +43,24 @@ dbServers:
 
             - name: "EVENT_POSTED_COUNT"
               type: "metricValue"
+
+# Default information needs to be updated
+controllerInfo:
+  controllerHost: "controller"
+  controllerPort: 8080
+  account: "customer1"
+  username: "user1"
+  password: "welcome"
+  encryptedPassword: ""
+  controllerSslEnabled: false
+  enableOrchestration: false
+  uniqueHostId: ""
+  accountAccessKey: ""
+  machinePath: ""
+  simEnabled: true
+  applicationName: ""
+  tierName: ""
+  nodeName: ""
+
+
+encryptionKey: "myKey"

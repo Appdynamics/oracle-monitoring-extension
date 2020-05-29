@@ -132,7 +132,7 @@ public class OracledbMonitor extends ABaseMonitor {
 
     private String getPassword(Map server, String normal_password) {
         String encryptionPassword = Util.convertToString(server.get("encryptedPassword"), "");
-        String encryptionKey = Util.convertToString(server.get("encryptionKey"), "");
+        String encryptionKey = Util.convertToString(getContextConfiguration().getConfigYml().get("encryptionKey"), "");
         String password;
         if (!Strings.isNullOrEmpty(encryptionKey) && !Strings.isNullOrEmpty(encryptionPassword)) {
             password = getEncryptedPassword(encryptionKey, encryptionPassword);
@@ -148,6 +148,4 @@ public class OracledbMonitor extends ABaseMonitor {
         cryptoMap.put(Constants.ENCRYPTION_KEY, encryptionKey);
         return CryptoUtils.getPassword(cryptoMap);
     }
-
-
 }

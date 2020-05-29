@@ -20,9 +20,6 @@ dbServers:
       #Needs to be used in conjunction with `encryptionKey`. Please read the extension documentation to generate encrypted password
 #      encryptedPassword: "9XdTa7+McBwP2g2xSpyNsg=="
 
-      #Needs to be used in conjunction with `encryptedPassword`. Please read the extension documentation to generate encrypted password
-#      encryptionKey: "myKey"
-
       # Replaces characters in metric name with the specified characters.
       # "replace" takes any regular expression
       # "replaceWith" takes the string to replace the matched characters
@@ -115,3 +112,24 @@ numberOfThreads: 5
 # taskSchedule:
 #   numberOfThreads: 1
 #   taskDelaySeconds: 10
+
+# Default information needs to be updated
+controllerInfo:
+  controllerHost: "controller"
+  controllerPort: 8080
+  account: "customer1"
+  username: "user1"
+  password: "welcome"
+  encryptedPassword: ""
+  controllerSslEnabled: false
+  enableOrchestration: false
+  uniqueHostId: ""
+  accountAccessKey: ""
+  machinePath: ""
+  simEnabled: true
+  applicationName: ""
+  tierName: ""
+  nodeName: ""
+
+
+encryptionKey: "myKey"

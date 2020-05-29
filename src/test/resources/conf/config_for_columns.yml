@@ -7,3 +7,25 @@ columns:
 
   - name: "AVERAGE_CPU_USAGE_PERCENT"
     type: "metricValue"
+
+
+# Default information needs to be updated
+controllerInfo:
+  controllerHost: "controller"
+  controllerPort: 8080
+  account: "customer1"
+  username: "user1"
+  password: "welcome"
+  encryptedPassword: ""
+  controllerSslEnabled: false
+  enableOrchestration: false
+  uniqueHostId: ""
+  accountAccessKey: ""
+  machinePath: ""
+  simEnabled: true
+  applicationName: ""
+  tierName: ""
+  nodeName: ""
+
+
+encryptionKey: "myKey"
