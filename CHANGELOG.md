@@ -1,3 +1,5 @@
+### Version 2.5
+* Revamped extension to appd-exts-commons 2.2.4
 
 ### Version 2.4.3
   * Added HeartBeat Metric.
