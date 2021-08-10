@@ -11,13 +11,21 @@ package com.appdynamics.extensions.oracledb;
 import com.appdynamics.extensions.AMonitorTaskRunnable;
 import com.appdynamics.extensions.MetricWriteHelper;
 import com.appdynamics.extensions.metrics.Metric;
+import com.appdynamics.extensions.logging.ExtensionsLoggerFactory;
+import com.singularity.ee.agent.systemagent.api.exception.TaskExecutionException;
+import org.apache.log4j.Level;
+import org.apache.log4j.PatternLayout;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.log4j.ConsoleAppender;
 
+import java.io.OutputStreamWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,8 +41,7 @@ public class OracledbMonitorTask implements AMonitorTaskRunnable {
     private JDBCConnectionAdapter jdbcAdapter;
     private Map server;
     private Boolean status = true;
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(OracledbMonitorTask.class);
-
+    private static final Logger logger = ExtensionsLoggerFactory.getLogger(OracledbMonitor.class);
 
     public void run() {
         List<Map> queries = (List<Map>) server.get("queries");
@@ -219,6 +226,4 @@ public class OracledbMonitorTask implements AMonitorTaskRunnable {
             return task;
         }
     }
-
-
 }

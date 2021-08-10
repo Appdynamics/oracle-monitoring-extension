@@ -425,7 +425,8 @@ Please visit [this](https://community.appdynamics.com/t5/Knowledge-Base/How-to-u
 Workbench is an inbuilt feature provided with each extension in order to assist you to fine tune the extension setup before you actually deploy it on the controller. Please review the following [document](https://community.appdynamics.com/t5/Knowledge-Base/How-to-use-the-Extensions-WorkBench/ta-p/30130) for how to use the Extensions WorkBench
 
 ## Troubleshooting
-Please follow the steps listed in the [extensions troubleshooting document](https://community.appdynamics.com/t5/Knowledge-Base/How-to-troubleshoot-missing-custom-metrics-or-extensions-metrics/ta-p/28695) in order to troubleshoot your issue. These are a set of common issues that customers might have faced during the installation of the extension. If these don't solve your issue, please follow the last step on the troubleshooting-document to contact the support team.
+1. Please follow the steps listed in the [extensions troubleshooting document](https://community.appdynamics.com/t5/Knowledge-Base/How-to-troubleshoot-missing-custom-metrics-or-extensions-metrics/ta-p/28695) in order to troubleshoot your issue. These are a set of common issues that customers might have faced during the installation of the extension. If these don't solve your issue, please follow the last step on the troubleshooting-document to contact the support team.
+2. If you are seeing ``` java.lang.NoClassDefFoundError: org/ietf/jgss/GSSException```  please add the jgss.jar in the <MA_HOME>/monitorsLibs and restart Machine agent.
 
 ## Support Tickets
 If after going through the Troubleshooting Document you have not been able to get your extension working, please file a ticket and add the following information.

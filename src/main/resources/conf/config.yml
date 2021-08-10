@@ -15,7 +15,7 @@ dbServers:
 
       connectionProperties:
          - user: "system"
-         - password: "oracle"
+           password: "oracle"
 
       #Needs to be used in conjunction with `encryptionKey`. Please read the extension documentation to generate encrypted password
 #      encryptedPassword: "9XdTa7+McBwP2g2xSpyNsg=="
