@@ -9,7 +9,9 @@
 package com.appdynamics.extensions.oracledb;
 
 
+import com.appdynamics.extensions.logging.ExtensionsLoggerFactory;
 import com.google.common.base.Strings;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
@@ -21,8 +23,7 @@ public class JDBCConnectionAdapter {
 
     private final String connUrl;
     private final Map<String, String> connectionProperties;
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(JDBCConnectionAdapter.class);
-
+    private static final Logger logger = ExtensionsLoggerFactory.getLogger(JDBCConnectionAdapter.class);
 
     private JDBCConnectionAdapter(String connStr, Map<String, String> connectionProperties) {
         this.connUrl = connStr;

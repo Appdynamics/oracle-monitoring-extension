@@ -9,6 +9,8 @@
 package com.appdynamics.extensions.oracledb;
 
 import com.appdynamics.extensions.metrics.Metric;
+import com.appdynamics.extensions.logging.ExtensionsLoggerFactory;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
@@ -27,8 +29,7 @@ public class MetricCollector {
     private String dbServerDisplayName;
     private String queryDisplayName;
     private List<Map<String, String>> metricReplacer;
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MetricCollector.class);
-
+    private static final Logger logger = ExtensionsLoggerFactory.getLogger(MetricCollector.class);
 
     public MetricCollector(String metricPrefix, String dbServerDisplayName, String queryDisplayName, List<Map<String, String>> metricReplacer) {
         this.metricPrefix = metricPrefix;
