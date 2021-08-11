@@ -41,7 +41,7 @@ public class OracledbMonitorTask implements AMonitorTaskRunnable {
     private JDBCConnectionAdapter jdbcAdapter;
     private Map server;
     private Boolean status = true;
-    private static final Logger logger = ExtensionsLoggerFactory.getLogger(OracledbMonitor.class);
+    private static final Logger logger = ExtensionsLoggerFactory.getLogger(OracledbMonitorTask.class);
 
     public void run() {
         List<Map> queries = (List<Map>) server.get("queries");

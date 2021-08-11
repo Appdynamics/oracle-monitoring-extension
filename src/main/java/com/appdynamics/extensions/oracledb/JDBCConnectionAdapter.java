@@ -23,7 +23,7 @@ public class JDBCConnectionAdapter {
 
     private final String connUrl;
     private final Map<String, String> connectionProperties;
-    private static final Logger logger = ExtensionsLoggerFactory.getLogger(OracledbMonitor.class);
+    private static final Logger logger = ExtensionsLoggerFactory.getLogger(JDBCConnectionAdapter.class);
 
     private JDBCConnectionAdapter(String connStr, Map<String, String> connectionProperties) {
         this.connUrl = connStr;

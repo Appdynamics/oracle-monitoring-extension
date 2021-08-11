@@ -114,30 +114,13 @@ public class OracledbMonitor extends ABaseMonitor {
     }
 
     private Map<String, String> getConnectionProperties(Map<String, ?> server) {
-        Map<String, String> connectionProperties = new LinkedHashMap<String, String>();
-        List<Map<String, String>> listOfMaps = (List<Map<String, String>>) server.get("connectionProperties");
+        Map<String, String> connectionProperties = (Map<String, String>) server.get("connectionProperties");
+        String password = connectionProperties.get("password");
+        if (Strings.isNullOrEmpty(password))
+            password = getPassword(connectionProperties);
 
-        if (listOfMaps != null) {
-            for (Map amap : listOfMaps) {
-                for (Object key : amap.keySet()) {
-                    if (key.toString().equals("password")) {
-                        String password;
-
-                        if (Strings.isNullOrEmpty((String) amap.get(key))) {
-                            password = getPassword(connectionProperties);
-                        } else {
-                            password = (String) amap.get(key);
-                        }
-                        connectionProperties.put((String) key, password);
-                    } else {
-                        connectionProperties.put((String) key, (String) amap.get(key));
-                    }
-                }
-            }
-            return connectionProperties;
-
-        }
-        return null;
+        connectionProperties.put("password", password);
+        return connectionProperties;
     }
 
     private String getPassword(Map<String, String> server) {
@@ -154,21 +137,21 @@ public class OracledbMonitor extends ABaseMonitor {
         return "";
     }
 
-//     public static void main(String[] args) throws TaskExecutionException {
-//
-//         ConsoleAppender ca = new ConsoleAppender();
-//         ca.setWriter(new OutputStreamWriter(System.out));
-//         ca.setLayout(new PatternLayout("%-5p [%t]: %m%n"));
-//         ca.setThreshold(Level.DEBUG);
-//         org.apache.log4j.Logger.getRootLogger().addAppender(ca);
-//
-//         OracledbMonitor monitor = new OracledbMonitor();
-//         final Map<String, String> taskArgs = new HashMap<>();
-//         taskArgs.put("config-file", "src/main/resources/conf/config.yml");
-//         //taskArgs.put("metric-file", "src/main/resources/metrics.xml");
-//
-//         monitor.execute(taskArgs, null);
-//
-//     }
+     public static void main(String[] args) throws TaskExecutionException {
+
+         ConsoleAppender ca = new ConsoleAppender();
+         ca.setWriter(new OutputStreamWriter(System.out));
+         ca.setLayout(new PatternLayout("%-5p [%t]: %m%n"));
+         ca.setThreshold(Level.DEBUG);
+         org.apache.log4j.Logger.getRootLogger().addAppender(ca);
+
+         OracledbMonitor monitor = new OracledbMonitor();
+         final Map<String, String> taskArgs = new HashMap<>();
+         taskArgs.put("config-file", "src/main/resources/conf/config.yml");
+         //taskArgs.put("metric-file", "src/main/resources/metrics.xml");
+
+         monitor.execute(taskArgs, null);
+
+     }
 
 }

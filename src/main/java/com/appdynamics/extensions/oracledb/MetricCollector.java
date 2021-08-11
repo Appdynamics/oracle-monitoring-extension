@@ -29,7 +29,7 @@ public class MetricCollector {
     private String dbServerDisplayName;
     private String queryDisplayName;
     private List<Map<String, String>> metricReplacer;
-    private static final Logger logger = ExtensionsLoggerFactory.getLogger(OracledbMonitor.class);
+    private static final Logger logger = ExtensionsLoggerFactory.getLogger(MetricCollector.class);
 
     public MetricCollector(String metricPrefix, String dbServerDisplayName, String queryDisplayName, List<Map<String, String>> metricReplacer) {
         this.metricPrefix = metricPrefix;

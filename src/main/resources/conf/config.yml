@@ -7,21 +7,20 @@ metricPrefix: "Custom Metrics|OracleDB|"
 
 dbServers:
     - displayName: "OracleDB"
-      connectionUrl: "jdbc:oracle:thin:@192.168.57.106:1521:orcl12c"
+      connectionUrl: "jdbc:oracle:thin:@192.168.0.66:1521:xe"
 #      connectionUrl: "jdbc:oracle:thin:username/password@HostForDatabase:PortForDatabase:databaseName"
 #      connectionUrl: "jdbc:oracle:thin:@HostForDatabase:PortForDatabase:databaseName"
 
       driver: "oracle.jdbc.OracleDriver"
 
       connectionProperties:
-         - user: "system"
+           user: "system"
            password: "oracle"
+#           encryptedPassword: ""
 
       #Needs to be used in conjunction with `encryptionKey`. Please read the extension documentation to generate encrypted password
-#      encryptedPassword: "9XdTa7+McBwP2g2xSpyNsg=="
 
       #Needs to be used in conjunction with `encryptedPassword`. Please read the extension documentation to generate encrypted password
-#      encryptionKey: "myKey"
 
       # Replaces characters in metric name with the specified characters.
       # "replace" takes any regular expression
@@ -107,8 +106,26 @@ dbServers:
             - name: "Value"
               type: "metricValue"
 
-
+#encryptionKey: "myKey"
 numberOfThreads: 5
+
+controllerInfo:
+  controllerHost: "" # -Dappdynamics.controller.hostName
+  controllerPort: 8090 # -Dappdynamics.controller.port
+  controllerSslEnabled: false # -Dappdynamics.controller.ssl.enabled
+  enableOrchestration: false # N/A
+  uniqueHostId: "" # -Dappdynamics.agent.uniqueHostId
+  username: "" # -Dappdynamics.agent.monitors.controller.username
+  password: "" # -Dappdynamics.agent.monitors.controller.password
+  encryptedPassword: "" # -Dappdynamics.agent.monitors.controller.encryptedPassword
+  accountAccessKey: "" # -Dappdynamics.agent.accountAccessKey
+  account: "customer1" # -Dappdynamics.agent.accountName
+  machinePath: "" # -Dappdynamics.machine.agent.hierarchyPath
+  simEnabled: false # -Dappdynamics.sim.enabled
+  applicationName: "" # -Dappdynamics.agent.applicationName
+  tierName: "" # -Dappdynamics.agent.tierName
+  nodeName: "" # -Dappdynamics.agent.nodeName
+
 
 #Run it as a scheduled task instead of running every minute.
 #If you want to run this every minute, comment this out
