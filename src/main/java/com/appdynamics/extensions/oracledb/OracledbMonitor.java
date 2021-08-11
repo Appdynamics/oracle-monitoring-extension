@@ -16,21 +16,10 @@ import com.appdynamics.extensions.logging.ExtensionsLoggerFactory;
 import static com.appdynamics.extensions.oracledb.Constant.METRIC_PREFIX;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
-import com.singularity.ee.agent.systemagent.api.exception.TaskExecutionException;
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.PatternLayout;
 import org.slf4j.Logger;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by bhuvnesh.kumar on 1/23/18.
@@ -136,22 +125,5 @@ public class OracledbMonitor extends ABaseMonitor {
         }
         return "";
     }
-
-     public static void main(String[] args) throws TaskExecutionException {
-
-         ConsoleAppender ca = new ConsoleAppender();
-         ca.setWriter(new OutputStreamWriter(System.out));
-         ca.setLayout(new PatternLayout("%-5p [%t]: %m%n"));
-         ca.setThreshold(Level.DEBUG);
-         org.apache.log4j.Logger.getRootLogger().addAppender(ca);
-
-         OracledbMonitor monitor = new OracledbMonitor();
-         final Map<String, String> taskArgs = new HashMap<>();
-         taskArgs.put("config-file", "src/main/resources/conf/config.yml");
-         //taskArgs.put("metric-file", "src/main/resources/metrics.xml");
-
-         monitor.execute(taskArgs, null);
-
-     }
 
 }
