@@ -17,8 +17,7 @@ and hence allowing you to build dashboards and set Health Rules based on the out
 
 ## Prerequisites
 
-In order to use this extension, you do need a [Standalone JAVA Machine Agent](https://docs.appdynamics.com/display/PRO44/Java+Agent) or [SIM Agent](https://docs.appdynamics.com/display/PRO44/Server+Visibility). 
-For more details on downloading these products, please visit [download.appdynamics.com](https://download.appdynamics.com/).
+Before the extension is installed, the prerequisites mentioned [here](https://community.appdynamics.com/t5/Knowledge-Base/Extensions-Prerequisites-Guide/ta-p/35213) need to be met. Please do not proceed with the extension installation if the specified prerequisites are not met.
 
 This is very essential in order to establish a connection with the Oracle DB to get the metrics.
 The extension needs to be able to connect to Oracle DB in order to collect and send metrics. 
@@ -35,7 +34,7 @@ The Oracle DB extension needs an Oracle user account on every Oracle instance th
             GRANT SELECT ANY DICTIONARY TO appdynamics;
 ```
 ## Installation
-1. To build from source, clone this repository and run 'mvn clean install'. This will produce a OracleDBMonitor-VERSION.zip in the target directory. Alternatively, download the latest release archive from [Github](https://github.com/Appdynamics/oracle-monitoring-extension/releases).
+1. To build from source, clone this repository and run 'mvn clean install'. This will produce a OracleDBMonitor-VERSION.zip in the target directory.
 2. Unzip the file OracleDBMonitor-[version].zip into `<MACHINE_AGENT_HOME>/monitors/`.
 3. In the newly created directory "OracleDBMonitor", edit the config.yml configuring the parameters (See Configuration section below).
 4. Download the oracle JDBC jar file and place it in the `<MACHINE_AGENT_HOME>/monitors/OracleDBMonitor` directory.
@@ -46,20 +45,19 @@ The Oracle DB extension needs an Oracle user account on every Oracle instance th
 ```    
 
 6. Restart the machineagent
-7. In the AppDynamics Metric Browser, look for: Application Infrastructure Performance  | \<Tier\> | Custom Metrics | Oracle  .
-8. If you're monitoring multiple Oracle DB instances, follow the above steps for every Oracle instance that you want to monitor.
+7. If you're monitoring multiple Oracle DB instances, follow the above steps for every Oracle instance that you want to monitor.
 
 **Note:** Please place the extension in the **"monitors"** directory of your **Machine Agent** installation 
 directory. Do not place the extension in the **"extensions"** directory of your **Machine Agent** installation directory.
 
 ## Configuration ##
-Note : Please make sure to not use tab (\t) while editing yaml files. You may want to validate the yaml file using a [yaml validator](http://yamllint.com/)
+Note : Please make sure to not use tab (\t) while editing yaml files. You may want to validate the yaml file using a [yaml validator](https://jsonformatter.org/yaml-validator)
 
 1. Configure the Oracle DB parameters by editing the config.yml file in `<MACHINE_AGENT_HOME>/monitors/OracleDBMonitor/`. 
 
    Here is a sample config.yml file
     ```
-    # Make sure the metric prefix ends with a |
+    #Refer the documentation to get details on how to configure metric prefix - https://community.appdynamics.com/t5/Knowledge-Base/How-do-I-troubleshoot-missing-custom-metrics-or-extensions/ta-p/28695
     #This will create this metric in all the tiers, under this path.
     metricPrefix: "Custom Metrics|OracleDB|"
     #This will create it in specific Tier. Replace <ComponentID> with TierID
@@ -429,14 +427,14 @@ Workbench is an inbuilt feature provided with each extension in order to assist 
 2. If you are seeing ``` java.lang.NoClassDefFoundError: org/ietf/jgss/GSSException```  please add the jgss.jar in the <MA_HOME>/monitorsLibs and restart Machine agent. You can download the jgss jar from [here](http://www.docjar.com/jar_detail/jgss.jar.html) 
 
 ## Contributing
-Always feel free to fork and contribute any changes directly via [GitHub](https://github.com/Appdynamics/vertica-monitoring-extension).
+Always feel free to fork and contribute any changes directly via [GitHub](https://github.com/Appdynamics/oracle-monitoring-extension).
 
 ## Version
 |          Name            |  Version   |
 |--------------------------|------------|
 |Extension Version         |2.5.0       |
-|Controller Compatibility  |4.5 or Later|
-|Agent Compatibility  |4.5.13 or Later|
 |Product Tested On         |OracleDB |
 |Last Update               |10/08/2021 |
-|List of Changes           |[Change log](https://github.com/Appdynamics/oracle-monitoring-extension/blob/master/CHANGELOG.md) |
+|Change List           |[Change log](https://github.com/Appdynamics/oracle-monitoring-extension/blob/master/CHANGELOG.md) |
+
+**Note**: While extensions are maintained and supported by customers under the open-source licensing model, they interact with agents and Controllers that are subject to [AppDynamics’ maintenance and support policy](https://docs.appdynamics.com/latest/en/product-and-release-announcements/maintenance-support-for-software-versions). Some extensions have been tested with AppDynamics 4.5.13+ artifacts, but you are strongly recommended against using versions that are no longer supported.   
