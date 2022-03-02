@@ -12,7 +12,7 @@ dbServers:
 
       connectionProperties:
           user: "dbadmin"
-          password: "password"
+          password: "xxxxxxxxx"
 
       #Needs to be used in conjunction with `encryptionKey`. Please read the extension documentation to generate encrypted password
       #encryptedPassword: ""

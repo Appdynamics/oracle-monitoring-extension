@@ -18,10 +18,10 @@ dbServers:
           ReadOnly: "true"
 
       #Needs to be used in conjunction with `encryptionKey`. Please read the extension documentation to generate encrypted password
-      encryptedPassword: "9XdTa7+McBwP2g2xSpyNsg=="
+      encryptedPassword: "xxxxxxxxx"
 
       #Needs to be used in conjunction with `encryptedPassword`. Please read the extension documentation to generate encrypted password
-      encryptionKey: "myKey"
+      encryptionKey: "xxx"
 
       # Replaces characters in metric name with the specified characters.
       # "replace" takes any regular expression
